@@ -15,5 +15,10 @@ public class PlayerInputSender : MonoBehaviour {
         var update = new PlayerInput.Update();
         update.SetJoystick(new Joystick(xAxis, yAxis));
         PlayerInputWriter.Send(update);
+
+        var jump = Input.GetKeyDown(KeyCode.Space);
+				if (jump) {
+  					PlayerInputWriter.Send(new PlayerInput.Update().AddJump(new Jump()));
+				}
 		}
 }

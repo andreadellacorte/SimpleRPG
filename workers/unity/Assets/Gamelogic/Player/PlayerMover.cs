@@ -15,29 +15,41 @@ public class PlayerMover : MonoBehaviour {
     [Require] private PlayerInput.Reader PlayerInputReader;
 
     private Rigidbody rigidbody;
+		private bool jump = false;
 
 		void OnEnable () {
-	        rigidbody = GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();
+				PlayerInputReader.JumpTriggered.Add(OnJump);
+		}
+
+		void OnDisable() {
+				PlayerInputReader.JumpTriggered.Remove(OnJump);
 		}
 
 		void FixedUpdate () {
-	        var joystick = PlayerInputReader.Data.joystick;
-	        var direction = new Vector3(joystick.xAxis, 0, joystick.yAxis);
+	      var joystick = PlayerInputReader.Data.joystick;
+	      var direction = new Vector3(joystick.xAxis, 0, joystick.yAxis);
 
-					if (direction.sqrMagnitude > 1) {
+				if (direction.sqrMagnitude > 1) {
 						direction.Normalize();
-					}
+				}
 
-	        rigidbody.AddForce(direction * SimulationSettings.PlayerAcceleration);
+				if (jump) {
+						direction += new Vector3(0, 5, 0);
+				}
 
-	        var pos = rigidbody.position;
-	        var positionUpdate = new Position.Update()
-	            .SetCoords(new Coordinates(pos.x, pos.y, pos.z));
+	      rigidbody.AddForce(direction * SimulationSettings.PlayerAcceleration);
 
-	        PositionWriter.Send(positionUpdate);
+	      var newCoords = rigidbody.position.ToCoordinates();
+	      PositionWriter.Send(new Position.Update().SetCoords(newCoords));
 
-	        var rotationUpdate = new Rotation.Update()
-	            .SetRotation(rigidbody.rotation.ToNativeQuaternion());
-	        RotationWriter.Send(rotationUpdate);
+				var newRotation = rigidbody.rotation.ToNativeQuaternion();
+				RotationWriter.Send(new Rotation.Update().SetRotation(newRotation));
+
+				jump = false;
+		}
+
+		private void OnJump(Jump _){
+				jump = true;
 		}
 }

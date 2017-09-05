@@ -5,7 +5,10 @@ type Joystick {
     float y_axis = 2;
 }
 
+type Jump {}
+
 component PlayerInput {
     id = 1004;
     Joystick joystick = 1;
+    event Jump jump;
 }
