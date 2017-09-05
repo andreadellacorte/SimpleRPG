@@ -34,7 +34,7 @@ public class PlayerMover : MonoBehaviour {
 						direction.Normalize();
 				}
 
-				if (jump) {
+				if (jump && IsGrounded()) {
 						direction += new Vector3(0, 5, 0);
 				}
 
@@ -48,6 +48,10 @@ public class PlayerMover : MonoBehaviour {
 
 				jump = false;
 		}
+
+		private bool IsGrounded() {
+   			return Physics.Raycast(rigidbody.position, Vector3.down, 1);
+ 		}
 
 		private void OnJump(Jump _){
 				jump = true;
