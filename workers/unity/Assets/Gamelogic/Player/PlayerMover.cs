@@ -16,6 +16,7 @@ public class PlayerMover : MonoBehaviour {
 
     private Rigidbody rigidbody;
 		private bool jump = false;
+		private int jumpPower = 5;
 
 		void OnEnable () {
         rigidbody = GetComponent<Rigidbody>();
@@ -35,7 +36,7 @@ public class PlayerMover : MonoBehaviour {
 				}
 
 				if (jump && IsGrounded()) {
-						direction += new Vector3(0, 5, 0);
+						direction += new Vector3(0, jumpPower, 0);
 				}
 
 	      rigidbody.AddForce(direction * SimulationSettings.PlayerAcceleration);
