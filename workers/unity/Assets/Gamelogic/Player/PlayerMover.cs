@@ -7,54 +7,86 @@ using Improbable.Unity;
 using Improbable.Unity.Visualizer;
 using UnityEngine;
 
-[WorkerType(WorkerPlatform.UnityWorker)]
-public class PlayerMover : MonoBehaviour {
+namespace Assets.Gamelogic.Player
+{
+    [WorkerType(WorkerPlatform.UnityWorker)]
+    public class PlayerMover : MonoBehaviour {
 
-    [Require] private Position.Writer PositionWriter;
-    [Require] private Rotation.Writer RotationWriter;
-    [Require] private PlayerInput.Reader PlayerInputReader;
+        [Require] private Position.Writer PositionWriter;
+        [Require] private Rotation.Writer RotationWriter;
+        [Require] private PlayerInput.Reader PlayerInputReader;
 
-    private Rigidbody rigidbody;
-		private bool jump = false;
-		private int jumpPower = 5;
+        private Vector3 defaultPos;
+        private bool hasControl = true;
+        private bool respawn = false;
 
-		void OnEnable () {
-        rigidbody = GetComponent<Rigidbody>();
-				PlayerInputReader.JumpTriggered.Add(OnJump);
-		}
+        private Rigidbody rb;
 
-		void OnDisable() {
-				PlayerInputReader.JumpTriggered.Remove(OnJump);
-		}
+    		void OnEnable () {
+            defaultPos = gameObject.transform.position;
+            rb = GetComponent<Rigidbody>();
+    		}
 
-		void FixedUpdate () {
-	      var joystick = PlayerInputReader.Data.joystick;
-	      var direction = new Vector3(joystick.xAxis, 0, joystick.yAxis);
+    		void FixedUpdate () {
+            if (respawn) {
+              Reset();
+              respawn = false;
+            }
 
-				if (direction.sqrMagnitude > 1) {
-						direction.Normalize();
-				}
+            if (!hasControl) {
+                return;
+            }
 
-				if (jump && IsGrounded()) {
-						direction += new Vector3(0, jumpPower, 0);
-				}
+    	      var joystick = PlayerInputReader.Data.joystick;
+            var fight = PlayerInputReader.Data.fight;
+            var jump = PlayerInputReader.Data.jump;
 
-	      rigidbody.AddForce(direction * SimulationSettings.PlayerAcceleration);
+    	      var direction = new Vector3(joystick.xAxis, 0, joystick.yAxis);
 
-	      var newCoords = rigidbody.position.ToCoordinates();
-	      PositionWriter.Send(new Position.Update().SetCoords(newCoords));
+            // Anti-cheating
+    				if (direction.sqrMagnitude > 1) {
+    						direction.Normalize();
+    				}
 
-				var newRotation = rigidbody.rotation.ToNativeQuaternion();
-				RotationWriter.Send(new Rotation.Update().SetRotation(newRotation));
+            // Fight mode
+            if (fight) {
+                // Slow down ball
+          			if (IsGrounded()) {
+                    rb.velocity = rb.velocity * 0.9f;
+          			}
+          			return;
+        		}
 
-				jump = false;
-		}
+            // Jump
+    				if (jump && IsGrounded()) {
+    						direction += new Vector3(0, SimulationSettings.PlayerJumpPower, 0);
+    				}
 
-		private bool IsGrounded() {
-   			return Physics.Raycast(rigidbody.position, Vector3.down, 1);
- 		}
+    	      rb.AddForce(direction * SimulationSettings.PlayerAcceleration);
 
-		private void OnJump(Jump _){
-				jump = true;
-		}
+    	      var newCoords = rb.position.ToCoordinates();
+    	      PositionWriter.Send(new Position.Update().SetCoords(newCoords));
+
+    				var newRotation = rb.rotation.ToNativeQuaternion();
+    				RotationWriter.Send(new Rotation.Update().SetRotation(newRotation));
+    		}
+
+    		private bool IsGrounded() {
+       			return Physics.Raycast(rb.position, Vector3.down, 1.0f);
+     		}
+
+        private void Reset() {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            gameObject.transform.position = defaultPos;
+        }
+
+        public void HasControl(bool control) {
+            hasControl = control;
+        }
+
+        public void Respawn() {
+            respawn = true;
+        }
+    }
 }
