@@ -11,7 +11,9 @@ namespace Assets.Gamelogic.Player
 
         [Require] private Health.Writer HealthWriter;
 
-        private void OnCollisionEnter(Collision other) {
+        private void OnTriggerEnter(Collider other) {
+
+            Debug.LogError("Trigger Enter");
             /*
              * Unity's OnTriggerEnter runs even if the MonoBehaviour is disabled, so non-authoritative UnityWorkers
              * must be protected against null writers
@@ -23,14 +25,19 @@ namespace Assets.Gamelogic.Player
             if (HealthWriter.Data.health <= 0)
                 return;
 
-            if (other != null && other.gameObject.tag == "Sword") {
+            Debug.Log("Other tag: " + other.gameObject.tag);
 
+            if (other != null && other.gameObject.CompareTag("Sword")) {
+
+                Debug.LogError("Sword");
                 // Reduce health of this entity when hit
                 int newHealth = HealthWriter.Data.health - 250;
                 HealthWriter.Send(new Health.Update().SetHealth(newHealth));
 
                 //Color.Lerp(Color.white, Color.red, Mathf.PingPong(Time.time, 1));
             }
+
+            Debug.LogWarning("Collision Exit");
         }
     }
 }
