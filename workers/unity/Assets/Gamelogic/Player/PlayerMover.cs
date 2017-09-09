@@ -17,14 +17,17 @@ namespace Assets.Gamelogic.Player
         [Require] private PlayerInput.Reader PlayerInputReader;
 
         private Vector3 defaultPos;
+
         private bool hasControl = true;
         private bool respawn = false;
 
         private Rigidbody rb;
+        private Rigidbody sword;
 
     		void OnEnable () {
             defaultPos = gameObject.transform.position;
             rb = GetComponent<Rigidbody>();
+            sword = gameObject.transform.Find("Sword").GetComponent<Rigidbody>();
     		}
 
     		void FixedUpdate () {
@@ -50,19 +53,27 @@ namespace Assets.Gamelogic.Player
 
             // Fight mode
             if (fight) {
+
                 // Slow down ball
           			if (IsGrounded()) {
                     rb.velocity = rb.velocity * 0.9f;
           			}
-          			return;
-        		}
 
-            // Jump
-    				if (jump && IsGrounded()) {
-    						direction += new Vector3(0, SimulationSettings.PlayerJumpPower, 0);
-    				}
+                // Raise sword
+                if (jump & IsGrounded()) {
+                  direction += new Vector3(0, SimulationSettings.PlayerSwordPower, 0);
+                }
 
-    	      rb.AddForce(direction * SimulationSettings.PlayerAcceleration);
+                sword.AddForce(direction * SimulationSettings.PlayerAcceleration);
+        		} else {
+
+                // Jump
+                if (jump && IsGrounded()) {
+                    direction += new Vector3(0, SimulationSettings.PlayerJumpPower, 0);
+                }
+
+                rb.AddForce(direction * SimulationSettings.PlayerAcceleration);
+            }
 
     	      var newCoords = rb.position.ToCoordinates();
     	      PositionWriter.Send(new Position.Update().SetCoords(newCoords));

@@ -22,6 +22,8 @@ namespace Assets.Gamelogic.Player
 
         public bool isDead = false;
 
+        public int currentHealth;
+
         private void OnEnable() {
             isDead = false;
             InitializeDyingAnimation();
@@ -29,21 +31,23 @@ namespace Assets.Gamelogic.Player
             // Register callback for when components change
             HealthWriter.HealthUpdated.Add(OnHealthUpdated);
 
+            currentHealth = HealthWriter.Data.health;
+
             playerMover = GetComponent<PlayerMover>();
             if (playerMover == null) {
               Debug.LogError("PlayerInputSender not found.");
             }
         }
 
+        private void OnDisable() {
+            // Deregister callback for when components change
+            HealthWriter.HealthUpdated.Remove(OnHealthUpdated);
+        }
+
         private void Update() {
             if (PositionWriter.Data.coords.ToUnityVector().y < - 50) {
                 Die();
             }
-        }
-
-        private void OnDisable() {
-            // Deregister callback for when components change
-            HealthWriter.HealthUpdated.Remove(OnHealthUpdated);
         }
 
         private void InitializeDyingAnimation() {
@@ -60,8 +64,10 @@ namespace Assets.Gamelogic.Player
         }
 
         // Callback for whenever the CurrentHealth property of the Health component is updated
-        private void OnHealthUpdated(int currentHealth)
+        private void OnHealthUpdated(int newHealth)
         {
+            currentHealth = newHealth;
+
             if (!isDead && currentHealth <= 0) {
                 Die();
                 isDead = true;
@@ -71,11 +77,8 @@ namespace Assets.Gamelogic.Player
         private void Die() {
             // Lock controls
             if (playerMover != null) {
-              playerMover.HasControl(false);
+                playerMover.HasControl(false);
             }
-
-            // Print message on Screen
-            Debug.Log("You died");
 
             // Respawn and regain controls after x secs
             StartCoroutine(DelayedAction(Respawn, 4f));
@@ -89,7 +92,7 @@ namespace Assets.Gamelogic.Player
         private void Respawn() {
             // Initialise player
             isDead = false;
-            HealthWriter.Send(new Health.Update().SetHealth(1000));
+            HealthWriter.Send(new Health.Update().SetHealth(SimulationSettings.PlayerSpawnHealth));
 
             // Respawn character
             playerMover.Respawn();

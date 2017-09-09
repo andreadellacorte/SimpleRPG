@@ -1,6 +1,11 @@
 package improbable.player;
 
+type Damage {}
+type Die {}
+
 component Health {
     id = 1005;
     int32 health = 1;
+    event Damage damage;
+    event Die die;
 }
