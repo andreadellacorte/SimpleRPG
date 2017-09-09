@@ -11,6 +11,7 @@ public class PlayerHighlighter : MonoBehaviour {
 
     private void OnEnable()
     {
+        gameObject.transform.Find("Crown").GetComponent<MeshRenderer>().enabled = true;
         playerBody.GetComponent<Renderer>().material = material;
     }
 }
