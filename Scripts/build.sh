@@ -10,6 +10,8 @@ mv improbable.credentials ~/.ivy2/improbable.credentials
 
 spatial update
 
+spatial auth login
+
 spatial worker build --target=deployment
 
 spatial cloud upload MySimpleRPG --log_level=debug
