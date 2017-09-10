@@ -9,6 +9,8 @@
 
 ## Introduction
 
+[![Build Status](https://travis-ci.org/andreadellacorte/SimpleRPG.svg?branch=master)](https://travis-ci.org/andreadellacorte/SimpleRPG)
+
 This is a SpatialOS starter project with useful core features that you can extend to build your own SpatialOS application.
 
 It contains:
