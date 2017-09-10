@@ -1,5 +1,13 @@
 #! /bin/sh
 
+tar xvf secrets.tar
+
+mkdir -p ~/.m2
+mv settings.xml ~/.m2/settings.xml
+
+mkdir -p ~/.ivy2
+mv improbable.credentials ~/.ivy2/improbable.credentials
+
 spatial worker build --target=deployment
 
 spatial cloud upload MySimpleRPG --log_level=debug
