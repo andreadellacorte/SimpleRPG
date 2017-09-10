@@ -6,7 +6,7 @@ before_install:
 - chmod a+x ./Scripts/install.sh
 - chmod a+x ./Scripts/build.sh
 - brew update
-- brew outdated <package-name> || brew upgrade <package-name>
+- brew upgrade
 install:
 - ./Scripts/install.sh
 script:
