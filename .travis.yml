@@ -5,8 +5,10 @@ rvm:
 before_install:
 - chmod a+x ./Scripts/install.sh
 - chmod a+x ./Scripts/build.sh
+- brew tap caskroom/cask
+- brew tap improbable-io/spatialos
+- brew tap wooga/unityversions
 - brew update
-- brew upgrade
 install:
 - ./Scripts/install.sh
 script:
