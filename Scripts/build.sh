@@ -1,16 +1,9 @@
 #! /bin/sh
 
-tar xvf secrets.tar
-
-mkdir -p ~/.m2
-mv settings.xml ~/.m2/settings.xml
-
-mkdir -p ~/.ivy2
-mv improbable.credentials ~/.ivy2/improbable.credentials
+mkdir -p ~/.improbable/oauth2
+mv ./secret ~/.improbable/oauth2/oauth2_refresh_token
 
 spatial update
-
-spatial auth login
 
 spatial worker build --target=deployment
 
