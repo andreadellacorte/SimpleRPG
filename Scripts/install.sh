@@ -1,5 +1,7 @@
 #! /bin/sh
 
+set +e
+
 brew tap caskroom/cask
 brew tap improbable-io/spatialos
 brew tap wooga/unityversions
@@ -11,3 +13,5 @@ brew cask install unity@5.6.1f1
 brew cask install unity-linux-support-for-editor@5.6.1f1
 brew cask install unity-standard-assets@5.6.1f1
 brew cask install unity-windows-support-for-editor@5.6.1f1
+
+set -e
