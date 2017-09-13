@@ -4,4 +4,5 @@ build/
 logs/
 workers/unity/external-default-unityclient.log
 snapshots/
+!snapshots/default.snapshot
 .DS_STORE

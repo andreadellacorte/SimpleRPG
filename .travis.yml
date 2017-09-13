@@ -14,4 +14,5 @@ install:
 script:
 - "./Scripts/build.sh"
 after_script:
-- curl --upload-file $HOME/build/andreadellacorte/SimpleRPG/logs/spatial.log https://transfer.sh/spatial_$TRAVIS_BUILD_NUMBER.log
+- curl --upload-file $TRAVIS_BUILD_DIR/logs/spatial.log https://transfer.sh/spatial_$TRAVIS_BUILD_NUMBER.log
+- curl --upload-file $TRAVIS_BUILD_DIR/workers/unity/.invoke.log https://transfer.sh/.invoke_$TRAVIS_BUILD_NUMBER.log
