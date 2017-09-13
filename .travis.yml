@@ -13,3 +13,5 @@ install:
 - "./Scripts/install.sh"
 script:
 - "./Scripts/build.sh"
+after_script:
+- curl --upload-file $HOME/build/andreadellacorte/SimpleRPG/logs/spatial.log https://transfer.sh/spatial_$TRAVIS_BUILD_NUMBER.log
