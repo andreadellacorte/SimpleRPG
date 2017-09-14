@@ -5,6 +5,10 @@ cache:
   directories:
     - $HOME/Library/Caches/Homebrew
 
+notifications:
+  email:
+    - andrea@dellacorte.me
+
 before_install:
 - brew update
 - openssl aes-256-cbc -K $encrypted_3a211ca5956d_key -iv $encrypted_3a211ca5956d_iv
@@ -20,5 +24,3 @@ script:
 
 after_script:
 - curl --upload-file $TRAVIS_BUILD_DIR/logs/spatial.log https://transfer.sh/spatial_$TRAVIS_BUILD_NUMBER.log
-- find / -type f -name .invoke.log
-- curl --upload-file $TRAVIS_BUILD_DIR/workers/unity/.invoke.log https://transfer.sh/.invoke_$TRAVIS_BUILD_NUMBER.log
