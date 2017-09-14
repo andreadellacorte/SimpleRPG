@@ -19,6 +19,4 @@ brew cask install unity-linux-support-for-editor@5.6.0
 brew cask install unity-standard-assets@5.6.0
 brew cask install unity-windows-support-for-editor@5.6.0
 
-spatial diagnose --log_level=debug
-
 set -e
