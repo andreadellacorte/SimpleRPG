@@ -7,8 +7,6 @@ mv ./secret ~/.improbable/oauth2/oauth2_refresh_token
 
 assembly_name=MySimpleRPG_$( date +%Y%m%d_%H%M%S )
 
-spatial diagnose
-
 spatial worker build --target=deployment
 
 spatial cloud upload $assembly_name
