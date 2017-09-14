@@ -2,9 +2,6 @@
 
 set +e
 
-mkdir -p ~/.improbable/oauth2
-mv ./secret ~/.improbable/oauth2/oauth2_refresh_token
-
 assembly_name=MySimpleRPG_$( date +%Y%m%d_%H%M%S )
 
 spatial worker build --target=deployment

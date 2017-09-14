@@ -14,7 +14,6 @@ before_install:
 
 install:
 - "./Scripts/install.sh"
-- spatial diagnose --log_level=debug
 
 script:
 - "./Scripts/build.sh"
