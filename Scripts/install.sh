@@ -7,6 +7,7 @@ brew tap improbable-io/spatialos
 brew update
 
 brew cask install java
+brew cask install mono-mdk
 
 brew cask install spatial
 brew cask install unity@5.6.0

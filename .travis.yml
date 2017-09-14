@@ -1,6 +1,4 @@
 language: objective-c
-mono:
-  - 4.4.2
 cache:
   timeout: 1800
   directories:
