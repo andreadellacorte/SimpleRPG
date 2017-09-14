@@ -1,15 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set +e
 
-assembly_name=MySimpleRPG_$( date +%Y%m%d_%H%M%S )
+project_name=MySimpleRPG
+assembly_name=$project_name
+assembly_name+=_$( date +%Y%m%d_%H%M%S )
 
 spatial worker build --target=deployment
-spatial worker build --target=deployment
-spatial worker build --target=deployment
+
+set -e
 
 spatial cloud upload $assembly_name
 
-spatial cloud launch $assembly_name default_launch.json beta_batman_crazy_339 --snapshot=snapshots/default.snapshot --cluster_region=eu
+spatial cloud delete $project_name
 
-set -e
+spatial cloud launch $assembly_name default_launch.json $project_name --snapshot=snapshots/default.snapshot --cluster_region=eu
