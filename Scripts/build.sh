@@ -5,6 +5,8 @@ set +e
 assembly_name=MySimpleRPG_$( date +%Y%m%d_%H%M%S )
 
 spatial worker build --target=deployment
+spatial worker build --target=deployment
+spatial worker build --target=deployment
 
 spatial cloud upload $assembly_name
 
