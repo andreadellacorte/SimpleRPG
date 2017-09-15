@@ -11,7 +11,9 @@ brew update
 
 brew cask install spatial
 
-brew cask install unity@$UNITY_VERSION
-brew cask install unity-linux-support-for-editor@$UNITY_VERSION
-brew cask install unity-standard-assets@$UNITY_VERSION
-brew cask install unity-windows-support-for-editor@$UNITY_VERSION
+if [ ! -d "$UNITY_FOLDER" ]; then
+  brew cask install unity@$UNITY_VERSION
+  brew cask install unity-linux-support-for-editor@$UNITY_VERSION
+  brew cask install unity-standard-assets@$UNITY_VERSION
+  brew cask install unity-windows-support-for-editor@$UNITY_VERSION
+fi

@@ -1,13 +1,16 @@
 language: objective-c
 
-cache:
-  timeout: 3600
-  directories:
-    - $HOME/Library/Caches/Homebrew
-
 env:
   global:
     - UNITY_VERSION=5.6.0
+    - UNITY_FOLDER=/Applications/Unity
+    - HOMEBREW_FOLDER=$HOME/Library/Caches/Homebrew
+
+cache:
+  timeout: 3600
+  directories:
+    - $HOMEBREW_FOLDER
+    - $UNITY_FOLDER
 
 notifications:
   email:
