@@ -2,9 +2,8 @@
 
 set +e
 
-project_name=MySimpleRPG
-assembly_name=$project_name
-assembly_name+=_$( date +%Y%m%d_%H%M%S )
+project_name=mysimplerpg
+assembly_name=$project_name$( date +%Y%m%d%H%M%S )
 
 spatial worker build --target=deployment
 
