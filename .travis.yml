@@ -9,7 +9,6 @@ env:
 cache:
   timeout: 3600
   directories:
-    - $HOMEBREW_FOLDER
     - $UNITY_FOLDER
 
 notifications:
