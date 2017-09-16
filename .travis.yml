@@ -22,6 +22,7 @@ before_install:
 - chmod a+x ./Scripts/install.sh
 - chmod a+x ./Scripts/build.sh
 - chmod a+x ./Script/secret.sh
+- chmod a+x ./Script/deploy.sh
 
 install:
 - "./Scripts/install.sh"
@@ -29,6 +30,9 @@ install:
 script:
 - "./Scripts/secret.sh"
 - "./Scripts/build.sh"
+
+after_success:
+- "./Scripts/deploy.sh"
 
 after_script:
 - curl --upload-file $TRAVIS_BUILD_DIR/logs/spatial.log https://transfer.sh/spatial_$TRAVIS_BUILD_NUMBER.log
