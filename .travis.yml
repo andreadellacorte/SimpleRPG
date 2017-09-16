@@ -25,12 +25,12 @@ before_install:
 - chmod a+x ./Scripts/deploy.sh
 
 install:
-- "./Scripts/install.sh"
+- ./Scripts/install.sh
 
 script:
-- "./Scripts/secret.sh"
-- if [ $TRAVIS_TEST_RESULT -eq 0 ]; "./Scripts/build.sh"; fi
-- if [ $TRAVIS_TEST_RESULT -eq 0 ]; "./Scripts/deploy.sh"; fi
+- ./Scripts/secret.sh
+- if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./Scripts/build.sh; fi
+- if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./Scripts/deploy.sh; fi
 
 after_script:
 - curl --upload-file $TRAVIS_BUILD_DIR/logs/spatial.log https://transfer.sh/spatial_$TRAVIS_BUILD_NUMBER.log
