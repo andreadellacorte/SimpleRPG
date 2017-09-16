@@ -6,7 +6,7 @@ env:
     - UNITY_FOLDER=/Applications/Unity
     - HOMEBREW_FOLDER=$HOME/Library/Caches/Homebrew
     - PROJECT_NAME=mysimplerpg
-    - ASSEMBLY_NAME=$PROJECT_NAME$( date +%Y%m%d%H%M%S )
+    - ASSEMBLY_NAME=mysimplerpg_$TRAVIS_BUILD_ID
 
 cache:
   timeout: 3600
@@ -29,10 +29,8 @@ install:
 
 script:
 - "./Scripts/secret.sh"
-- "./Scripts/build.sh"
-
-after_success:
-- "./Scripts/deploy.sh"
+- if [ $TRAVIS_TEST_RESULT -eq 0 ]; "./Scripts/build.sh"; fi
+- if [ $TRAVIS_TEST_RESULT -eq 0 ]; "./Scripts/deploy.sh"; fi
 
 after_script:
 - curl --upload-file $TRAVIS_BUILD_DIR/logs/spatial.log https://transfer.sh/spatial_$TRAVIS_BUILD_NUMBER.log
