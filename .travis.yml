@@ -27,7 +27,7 @@ install:
 - "./Scripts/install.sh"
 
 script:
-- "./Scripts/secrets.sh"
+- "./Scripts/secret.sh"
 - "./Scripts/build.sh"
 
 after_script:
