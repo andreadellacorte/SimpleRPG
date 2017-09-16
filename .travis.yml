@@ -6,7 +6,7 @@ env:
     - UNITY_FOLDER=/Applications/Unity
     - HOMEBREW_FOLDER=$HOME/Library/Caches/Homebrew
     - PROJECT_NAME=mysimplerpg
-    - ASSEMPLY_NAME=$PROJECT_NAME$( date +%Y%m%d%H%M%S )
+    - ASSEMBLY_NAME=$PROJECT_NAME$( date +%Y%m%d%H%M%S )
 
 cache:
   timeout: 3600
