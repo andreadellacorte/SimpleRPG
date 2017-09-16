@@ -2,9 +2,6 @@
 
 set -e
 
-mkdir -p ~/.improbable/oauth2
-mv ./secret ~/.improbable/oauth2/oauth2_refresh_token
-
 brew tap caskroom/cask
 brew tap improbable-io/spatialos
 brew update

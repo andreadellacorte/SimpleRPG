@@ -28,6 +28,7 @@ namespace Assets.Gamelogic.Player
                 int newHealth = HealthWriter.Data.health - 250;
                 HealthWriter.Send(new Health.Update().SetHealth(newHealth));
 
+                //TODO
                 //Color.Lerp(Color.white, Color.red, Mathf.PingPong(Time.time, 1));
             }
         }
