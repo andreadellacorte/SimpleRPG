@@ -6,7 +6,7 @@ env:
     - UNITY_FOLDER=/Applications/Unity
     - HOMEBREW_FOLDER=$HOME/Library/Caches/Homebrew
     - PROJECT_NAME=mysimplerpg
-    - ASSEMBLY_NAME=mysimplerpg_$TRAVIS_BUILD_ID
+    - ASSEMBLY_NAME=mysimplerpg_$TRAVIS_JOB_NUMBER
 
 cache:
   timeout: 3600
