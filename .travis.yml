@@ -19,18 +19,18 @@ notifications:
 
 before_install:
 - brew update
-- chmod a+x ./Scripts/install.sh
-- chmod a+x ./Scripts/build.sh
-- chmod a+x ./Scripts/secret.sh
-- chmod a+x ./Scripts/deploy.sh
+- chmod a+x ./scripts/install.sh
+- chmod a+x ./scripts/build.sh
+- chmod a+x ./scripts/secret.sh
+- chmod a+x ./scripts/deploy.sh
 
 install:
-- ./Scripts/install.sh
+- ./scripts/install.sh
 
 script:
-- ./Scripts/secret.sh
-- if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./Scripts/build.sh; fi
-- if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./Scripts/deploy.sh; fi
+- ./scripts/secret.sh
+- if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./scripts/build.sh; fi
+- if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./scripts/deploy.sh; fi
 
 after_script:
 - curl --upload-file $TRAVIS_BUILD_DIR/logs/spatial.log https://transfer.sh/spatial_$TRAVIS_BUILD_NUMBER.log
