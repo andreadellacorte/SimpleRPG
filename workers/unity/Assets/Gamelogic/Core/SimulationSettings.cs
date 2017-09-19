@@ -25,6 +25,8 @@ namespace Assets.Gamelogic.Core
         public static readonly float PlayerJumpPower = 5;
         public static readonly float PlayerSwordPower = 0.7f;
 
+        public static readonly int PlayerKillValue = 10;
+
         public static readonly string DefaultSnapshotPath = Application.dataPath + "/../../../snapshots/default.snapshot";
     }
 }
