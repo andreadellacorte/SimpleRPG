@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Assets.Gamelogic.Player
 {
     [WorkerType(WorkerPlatform.UnityWorker)]
-    public class PlayerMover : MonoBehaviour {
+    public class WorkerInputHandler : MonoBehaviour {
 
         [Require] private Position.Writer PositionWriter;
         [Require] private Rotation.Writer RotationWriter;

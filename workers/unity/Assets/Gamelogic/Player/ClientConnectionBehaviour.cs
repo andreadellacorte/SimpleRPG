@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Assets.Gamelogic.Player
 {
     [WorkerType(WorkerPlatform.UnityClient)]
-    public class SendClientConnection : MonoBehaviour
+    public class ClientConnectionBehaviour : MonoBehaviour
     {
         [Require]
         private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
@@ -41,4 +41,3 @@ namespace Assets.Gamelogic.Player
         }
     }
 }
-

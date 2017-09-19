@@ -12,13 +12,13 @@ using System.Collections;
 namespace Assets.Gamelogic.Player
 {
     [WorkerType(WorkerPlatform.UnityWorker)]
-    public class DyingBehaviour : MonoBehaviour
+    public class WorkerDyingHandler : MonoBehaviour
     {
         // Inject access to the entity's Health component
         [Require] private Health.Writer HealthWriter;
         [Require] private Position.Writer PositionWriter;
 
-        private PlayerMover playerMover;
+        private WorkerInputHandler inputHandler;
 
         public bool isDead = false;
 
@@ -33,8 +33,8 @@ namespace Assets.Gamelogic.Player
 
             currentHealth = HealthWriter.Data.health;
 
-            playerMover = GetComponent<PlayerMover>();
-            if (playerMover == null) {
+            inputHandler = GetComponent<WorkerInputHandler>();
+            if (inputHandler == null) {
               Debug.LogError("PlayerInputSender not found.");
             }
         }
@@ -76,10 +76,12 @@ namespace Assets.Gamelogic.Player
 
         private void Die() {
             // Lock controls
-            if (playerMover != null) {
-                playerMover.HasControl(false);
+            if (inputHandler != null) {
+                inputHandler.HasControl(false);
             }
 
+            // TODO This can cause troubles if the worker loses authority over
+            // the item before respawning
             // Respawn and regain controls after x secs
             StartCoroutine(DelayedAction(Respawn, 4f));
         }
@@ -95,10 +97,10 @@ namespace Assets.Gamelogic.Player
             HealthWriter.Send(new Health.Update().SetHealth(SimulationSettings.PlayerSpawnHealth));
 
             // Respawn character
-            playerMover.Respawn();
+            inputHandler.Respawn();
 
             // Regain controls
-            playerMover.HasControl(true);
+            inputHandler.HasControl(true);
         }
     }
 }
