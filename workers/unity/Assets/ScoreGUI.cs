@@ -22,12 +22,10 @@ namespace Assets.Gamelogic.Player
         private GameObject scoreCanvasUI;
         private Text totalPointsGUI;
 
-        private void Awake()
-        {
+        private void Awake() {
 						scoreCanvasUI = GameObject.Find("ScoreCanvas");
             if (scoreCanvasUI != null) {
                 totalPointsGUI = scoreCanvasUI.GetComponentInChildren<Text>();
-                scoreCanvasUI.SetActive(false);
                 updateGUI(0);
             }
         }
@@ -43,23 +41,13 @@ namespace Assets.Gamelogic.Player
         }
 
         // Callback for whenever one or more property of the Score component is updated
-        private void OnScoreUpdated(int numberOfPoints)
-        {
+        private void OnScoreUpdated(int numberOfPoints) {
             updateGUI(numberOfPoints);
         }
 
-        void updateGUI(int score)
-        {
+        void updateGUI(int score) {
             if (scoreCanvasUI != null) {
-                if (score > 0)
-                {
-                    scoreCanvasUI.SetActive(true);
-                    totalPointsGUI.text = score.ToString();
-                }
-                else
-                {
-                    scoreCanvasUI.SetActive(false);
-                }
+              	totalPointsGUI.text = score.ToString();
             }
         }
     }
