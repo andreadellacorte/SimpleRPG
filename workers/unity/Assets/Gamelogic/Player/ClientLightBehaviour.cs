@@ -1,3 +1,4 @@
+using Assets.Gamelogic.Core;
 using Improbable.Core;
 using Improbable.Unity;
 using Improbable.Unity.Visualizer;
@@ -21,18 +22,28 @@ namespace Assets.Gamelogic.Player
         [SerializeField]
         private Vector3 lightOffset;
 
+        private Vector3 defaultLightOffset;
+        private float defaultLightRange;
+
       	// Use this for initialization
       	void Start () {
             playerLight = GameObject.Find("Player Light");
+            defaultLightOffset = lightOffset;
+            defaultLightRange = playerLight.GetComponent<Light>().range;
         }
 
         void LateUpdate () {
             playerLight.transform.position = gameObject.transform.position + lightOffset;
         }
 
+        public void ResetLightOffset() {
+            lightOffset = defaultLightOffset;
+            playerLight.GetComponent<Light>().range = defaultLightRange;
+        }
+
         public void IncreaseLightOffset() {
-            lightOffset *= 1.2F;
-            playerLight.GetComponent<Light>().range *= 1.2F;
+            lightOffset *= SimulationSettings.PlayerKillSizeAward;
+            playerLight.GetComponent<Light>().range *= SimulationSettings.PlayerKillSizeAward;
         }
     }
 }

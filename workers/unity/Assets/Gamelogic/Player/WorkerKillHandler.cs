@@ -1,3 +1,4 @@
+using Assets.Gamelogic.Core;
 using Improbable.Entity.Component;
 using Improbable.Player;
 using Improbable.Unity;
@@ -41,7 +42,7 @@ namespace Assets.Gamelogic.Player
         }
 
         private void AwardSize() {
-            gameObject.transform.localScale *= 1.5F;
+            gameObject.transform.localScale *= SimulationSettings.PlayerKillSizeAward;
         }
     }
 }

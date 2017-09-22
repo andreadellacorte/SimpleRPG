@@ -1,3 +1,4 @@
+using Assets.Gamelogic.Core;
 using Improbable.Core;
 using Improbable.Unity;
 using Improbable.Unity.Visualizer;
@@ -18,19 +19,27 @@ namespace Assets.Gamelogic.Player
 
         private Transform cam;
 
-        public Vector3 camOffset;
+        private Vector3 defaultCamOffset;
+
+        [SerializeField]
+        private Vector3 camOffset;
 
       	// Use this for initialization
       	void Start () {
             cam = GameObject.FindObjectOfType<Camera>().transform;
+            defaultCamOffset = camOffset;
         }
 
         void LateUpdate () {
-            cam.transform.position = gameObject.transform.position + camOffset;
+            cam.position = gameObject.transform.position + camOffset;
+        }
+
+        public void ResetCameraOffset() {
+            camOffset = defaultCamOffset;
         }
 
         public void IncreaseCameraOffset() {
-            camOffset *= 1.2F;
+            camOffset *= SimulationSettings.PlayerKillSizeAward;
         }
     }
 }

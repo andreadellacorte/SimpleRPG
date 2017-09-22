@@ -1,3 +1,4 @@
+using Assets.Gamelogic.Core;
 using Improbable.Player;
 using Improbable.Core;
 using Improbable.Unity;
@@ -56,7 +57,7 @@ namespace Assets.Gamelogic.Player
         }
 
         void IncreaseSize() {
-            gameObject.transform.localScale *= 1.2F;
+            gameObject.transform.localScale *= SimulationSettings.PlayerKillSizeAward;
         }
 
         void IncreaseCameraOffset() {

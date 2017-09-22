@@ -23,7 +23,8 @@ namespace Assets.Gamelogic.Core
         public static readonly float PlayerSpawnHeight = 4;
         public static readonly float PlayerAcceleration = 10;
         public static readonly float PlayerJumpPower = 5;
-        public static readonly float PlayerSwordPower = 0.7f;
+        public static readonly float PlayerSwordPower = 0.7F;
+        public static readonly float PlayerKillSizeAward = 1.2F;
 
         public static readonly int PlayerKillValue = 10;
 
