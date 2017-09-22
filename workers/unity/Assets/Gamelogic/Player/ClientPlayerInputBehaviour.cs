@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using Improbable.Unity;
 using Improbable.Unity.Visualizer;
@@ -6,7 +7,7 @@ using Improbable.Player;
 namespace Assets.Gamelogic.Player
 {
     [WorkerType(WorkerPlatform.UnityClient)]
-    public class PlayerInputSender : MonoBehaviour {
+    public class ClientPlayerInputBehaviour : MonoBehaviour {
 
         [Require] private PlayerInput.Writer PlayerInputWriter;
 

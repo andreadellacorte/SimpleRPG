@@ -7,7 +7,7 @@ namespace Assets.Gamelogic.Player
 {
     // Add this MonoBehaviour on client workers only
     [WorkerType(WorkerPlatform.UnityClient)]
-    public class CameraController : MonoBehaviour {
+    public class ClientLightBehaviour : MonoBehaviour {
 
         /*
          * Clients will only have write-access for their own designated Player entity's ClientAuthorityCheck component,
@@ -16,18 +16,18 @@ namespace Assets.Gamelogic.Player
          */
         [Require] private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
 
-        private Transform cam;
+        private Transform light;
 
         [SerializeField]
-        private Vector3 camOffset;
+        private Vector3 lightOffset;
 
       	// Use this for initialization
       	void Start () {
-            cam = GameObject.FindObjectOfType<Camera>().transform;
+            light = GameObject.Find("Player Light").transform;
         }
 
         void LateUpdate () {
-            cam.transform.position = gameObject.transform.position + camOffset;
+            light.transform.position = gameObject.transform.position + lightOffset;
         }
     }
 }

@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Assets.Gamelogic.Player
 {
     [WorkerType(WorkerPlatform.UnityWorker)]
-    public class PlayerMover : MonoBehaviour {
+    public class WorkerInputHandler : MonoBehaviour {
 
         [Require] private Position.Writer PositionWriter;
         [Require] private Rotation.Writer RotationWriter;
@@ -22,12 +22,12 @@ namespace Assets.Gamelogic.Player
         private bool respawn = false;
 
         private Rigidbody rb;
-        private Rigidbody sword;
+        private Transform sword;
 
     		void OnEnable () {
             defaultPos = gameObject.transform.position;
             rb = GetComponent<Rigidbody>();
-            sword = gameObject.transform.Find("Sword").GetComponent<Rigidbody>();
+            sword = gameObject.transform.Find("Sword").transform;
     		}
 
     		void FixedUpdate () {
@@ -64,7 +64,7 @@ namespace Assets.Gamelogic.Player
                   direction += new Vector3(0, SimulationSettings.PlayerSwordPower, 0);
                 }
 
-                sword.AddForce(direction * SimulationSettings.PlayerAcceleration);
+                rb.AddForceAtPosition(direction * SimulationSettings.PlayerAcceleration, sword.position);
         		} else {
 
                 // Jump

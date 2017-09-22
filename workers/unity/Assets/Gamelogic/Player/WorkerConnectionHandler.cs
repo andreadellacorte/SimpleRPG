@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Assets.Gamelogic.Player
 {
     [WorkerType(WorkerPlatform.UnityWorker)]
-    public class HandleClientConnection : MonoBehaviour
+    public class WorkerConnectionHandler : MonoBehaviour
     {
         [Require]
         private ClientConnection.Writer ClientConnectionWriter;

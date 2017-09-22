@@ -9,7 +9,7 @@ using Improbable.Player;
 namespace Assets.Gamelogic.Player
 {
     [WorkerType(WorkerPlatform.UnityWorker)]
-    public class TakeDamage : MonoBehaviour {
+    public class WorkerDamageHandler : MonoBehaviour {
 
         [Require] private Health.Writer HealthWriter;
 
@@ -31,7 +31,7 @@ namespace Assets.Gamelogic.Player
                 HealthWriter.Send(new Health.Update().SetHealth(newHealth));
 
                 if (newHealth <= 0) {
-                    AwardPointsForKill(other.GetComponent<BladeBehaviour>().playerId);
+                    AwardPointsForKill(other.GetComponent<WorkerBladeHandler>().playerId);
                 }
 
                 //TODO
