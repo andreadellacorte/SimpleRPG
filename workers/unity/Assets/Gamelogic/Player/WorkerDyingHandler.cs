@@ -4,6 +4,7 @@ using Improbable;
 using Improbable.Core;
 using Improbable.Player;
 using Improbable.Unity;
+using Improbable.Unity.Core;
 using Improbable.Unity.Visualizer;
 using UnityEngine;
 using System;
@@ -22,8 +23,6 @@ namespace Assets.Gamelogic.Player
 
         public bool isDead = false;
 
-        public int currentHealth;
-
         private void OnEnable() {
             isDead = false;
             InitializeDyingAnimation();
@@ -31,11 +30,9 @@ namespace Assets.Gamelogic.Player
             // Register callback for when components change
             HealthWriter.HealthUpdated.Add(OnHealthUpdated);
 
-            currentHealth = HealthWriter.Data.health;
-
             inputHandler = GetComponent<WorkerInputHandler>();
             if (inputHandler == null) {
-              Debug.LogError("PlayerInputSender not found.");
+                Debug.LogError("PlayerInputSender not found.");
             }
         }
 
@@ -63,18 +60,17 @@ namespace Assets.Gamelogic.Player
             }
         }
 
-        // Callback for whenever the CurrentHealth property of the Health component is updated
+        // Callback for whenever the Health component is updated
         private void OnHealthUpdated(int newHealth)
         {
-            currentHealth = newHealth;
-
-            if (!isDead && currentHealth <= 0) {
+            if (!isDead && newHealth <= 0) {
                 Die();
-                isDead = true;
             }
         }
 
         private void Die() {
+            isDead = true;
+
             // Lock controls
             if (inputHandler != null) {
                 inputHandler.HasControl(false);
@@ -94,6 +90,7 @@ namespace Assets.Gamelogic.Player
         private void Respawn() {
             // Initialise player
             isDead = false;
+
             HealthWriter.Send(new Health.Update().SetHealth(SimulationSettings.PlayerSpawnHealth));
 
             // Respawn character

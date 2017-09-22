@@ -26,6 +26,7 @@ namespace Assets.Gamelogic.Player
                 return;
 
             if (other != null && other.gameObject.CompareTag("Sword")) {
+
                 // Reduce health of this entity when hit
                 int newHealth = HealthWriter.Data.health - 250;
                 HealthWriter.Send(new Health.Update().SetHealth(newHealth));

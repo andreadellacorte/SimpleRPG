@@ -16,18 +16,23 @@ namespace Assets.Gamelogic.Player
          */
         [Require] private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
 
-        private Transform light;
+        private GameObject playerLight;
 
         [SerializeField]
         private Vector3 lightOffset;
 
       	// Use this for initialization
       	void Start () {
-            light = GameObject.Find("Player Light").transform;
+            playerLight = GameObject.Find("Player Light");
         }
 
         void LateUpdate () {
-            light.transform.position = gameObject.transform.position + lightOffset;
+            playerLight.transform.position = gameObject.transform.position + lightOffset;
+        }
+
+        public void IncreaseLightOffset() {
+            lightOffset *= 1.2F;
+            playerLight.GetComponent<Light>().range *= 1.2F;
         }
     }
 }

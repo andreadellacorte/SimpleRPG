@@ -18,8 +18,7 @@ namespace Assets.Gamelogic.Player
 
         private Transform cam;
 
-        [SerializeField]
-        private Vector3 camOffset;
+        public Vector3 camOffset;
 
       	// Use this for initialization
       	void Start () {
@@ -28,6 +27,10 @@ namespace Assets.Gamelogic.Player
 
         void LateUpdate () {
             cam.transform.position = gameObject.transform.position + camOffset;
+        }
+
+        public void IncreaseCameraOffset() {
+            camOffset *= 1.2F;
         }
     }
 }
