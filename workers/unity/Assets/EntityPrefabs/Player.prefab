@@ -90,7 +90,6 @@ GameObject:
   - component: {fileID: 4874754981896636}
   - component: {fileID: 33604618290123484}
   - component: {fileID: 23357965046104568}
-  - component: {fileID: 54189674519866538}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -140,7 +139,6 @@ GameObject:
   - component: {fileID: 114522950691533408}
   - component: {fileID: 114461015631193876}
   - component: {fileID: 114402682275905452}
-  - component: {fileID: 138091419979733032}
   - component: {fileID: 114557841925585220}
   - component: {fileID: 135537141783476240}
   - component: {fileID: 135470193373809294}
@@ -408,21 +406,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1498433946711972}
   m_Mesh: {fileID: 4300066, guid: 5f3a7deba91ee3341b2266db1be8c0a0, type: 3}
---- !u!54 &54189674519866538
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1395821851873204}
-  serializedVersion: 2
-  m_Mass: 0.15
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!54 &54469160304877904
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -716,14 +699,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
---- !u!138 &138091419979733032
-FixedJoint:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1529690679125658}
-  m_ConnectedBody: {fileID: 54189674519866538}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
