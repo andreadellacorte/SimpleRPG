@@ -55,13 +55,13 @@ namespace Assets.Gamelogic.Player
             if (fight) {
 
                 // Slow down ball
-          			if (IsGrounded()) {
+                if (IsGrounded()) {
                     rb.velocity = rb.velocity * 0.9f;
-          			}
+                }
 
                 // Raise sword
                 if (jump & IsGrounded()) {
-                  direction += new Vector3(0, SimulationSettings.PlayerSwordPower, 0);
+                    direction += new Vector3(0, SimulationSettings.PlayerSwordPower, 0);
                 }
 
                 rb.AddForceAtPosition(direction * SimulationSettings.PlayerAcceleration, sword.position);
@@ -83,7 +83,8 @@ namespace Assets.Gamelogic.Player
     		}
 
     		private bool IsGrounded() {
-       			return Physics.Raycast(rb.position, Vector3.down, 1.0f);
+            int groundLayerMask = (1 << 8);
+       			return Physics.Raycast(rb.position, Vector3.down, 1.0f, groundLayerMask);
      		}
 
         private void Reset() {
