@@ -1,0 +1,8 @@
+package improbable.player;
+
+component Size {
+    // Component ID, unique within the project
+    id = 1007;
+
+    float size_multiplier = 1;
+}

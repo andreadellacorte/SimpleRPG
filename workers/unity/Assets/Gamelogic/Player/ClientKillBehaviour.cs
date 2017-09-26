@@ -45,7 +45,6 @@ namespace Assets.Gamelogic.Player
         private void OnScoreUpdated(int numberOfPoints) {
             updateGUI(numberOfPoints);
 
-            IncreaseSize();
             IncreaseCameraOffset();
             IncreaseLightOffset();
         }
@@ -54,10 +53,6 @@ namespace Assets.Gamelogic.Player
             if (scoreCanvasUI != null) {
               	totalPointsGUI.text = score.ToString();
             }
-        }
-
-        void IncreaseSize() {
-            gameObject.transform.localScale *= SimulationSettings.PlayerKillSizeAward;
         }
 
         void IncreaseCameraOffset() {

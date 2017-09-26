@@ -15,10 +15,11 @@ namespace Assets.Gamelogic.Player
          * which has write access for its Score component.
          */
         [Require] private Score.Writer ScoreWriter;
+        [Require] private Size.Writer SizeWriter;
 
         void OnEnable() {
             // Register command callback
-            ScoreWriter.CommandReceiver.OnAwardPoints.RegisterResponse(OnAwardPoints);
+            ScoreWriter.CommandReceiver.OnAwardPoints.RegisterResponse(OnAwardKill);
         }
 
         private void OnDisable() {
@@ -27,7 +28,7 @@ namespace Assets.Gamelogic.Player
         }
 
         // Command callback for handling points awarded by other entities when they sink
-        private AwardResponse OnAwardPoints(AwardPoints request, ICommandCallerInfo callerInfo) {
+        private AwardResponse OnAwardKill(AwardPoints request, ICommandCallerInfo callerInfo) {
 
             AwardPoints((int)request.amount);
             AwardSize();
@@ -42,7 +43,8 @@ namespace Assets.Gamelogic.Player
         }
 
         private void AwardSize() {
-            gameObject.transform.localScale *= SimulationSettings.PlayerKillSizeAward;
+            float newSizeMultiplier = SizeWriter.Data.sizeMultiplier * SimulationSettings.PlayerKillSizeAward;
+            SizeWriter.Send(new Size.Update().SetSizeMultiplier(newSizeMultiplier));
         }
     }
 }

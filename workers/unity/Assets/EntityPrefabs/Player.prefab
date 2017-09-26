@@ -123,6 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4418425751597690}
   - component: {fileID: 54469160304877904}
+  - component: {fileID: 114632177586701270}
   - component: {fileID: 114589901452358290}
   - component: {fileID: 114403702903192286}
   - component: {fileID: 114402913069288956}
@@ -595,6 +596,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camOffset: {x: 0, y: 15, z: -10}
+--- !u!114 &114632177586701270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529690679125658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de3f703e6275d4e76be4afe8647738b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114762868651265470
 MonoBehaviour:
   m_ObjectHideFlags: 1
