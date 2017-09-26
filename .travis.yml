@@ -27,6 +27,9 @@ before_install:
 install:
 - ./scripts/install.sh
 
+before_script:
+- spatial cloud delete $PROJECT_NAME || true
+
 script:
 - ./scripts/secret.sh
 - if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./scripts/build.sh; fi

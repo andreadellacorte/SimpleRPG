@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 114461015631193876}
   - component: {fileID: 114402682275905452}
   - component: {fileID: 135537141783476240}
-  - component: {fileID: 135470193373809294}
+  - component: {fileID: 135057064068338496}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightOffset: {x: 0, y: 6, z: 0}
---- !u!135 &135470193373809294
+--- !u!135 &135057064068338496
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

@@ -20,6 +20,7 @@ namespace Assets.Gamelogic.Player
 
         private bool hasControl = true;
         private bool respawn = false;
+        private float distanceToGround;
 
         private Rigidbody rb;
         private Transform sword;
@@ -28,12 +29,15 @@ namespace Assets.Gamelogic.Player
             defaultPos = gameObject.transform.position;
             rb = GetComponent<Rigidbody>();
             sword = gameObject.transform.Find("Sword").transform;
+            distanceToGround = gameObject.GetComponent<SphereCollider>().radius;
     		}
 
     		void FixedUpdate () {
+
+            distanceToGround = gameObject.GetComponent<SphereCollider>().radius;
+
             if (respawn) {
               Reset();
-              respawn = false;
             }
 
             if (!hasControl) {
@@ -84,13 +88,14 @@ namespace Assets.Gamelogic.Player
 
     		private bool IsGrounded() {
             int groundLayerMask = (1 << 8);
-       			return Physics.Raycast(rb.position, Vector3.down, 1.0f, groundLayerMask);
+       			return Physics.Raycast(rb.position, Vector3.down, 2 * distanceToGround, groundLayerMask);
      		}
 
         private void Reset() {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             gameObject.transform.position = defaultPos;
+            respawn = false;
         }
 
         public void HasControl(bool control) {
