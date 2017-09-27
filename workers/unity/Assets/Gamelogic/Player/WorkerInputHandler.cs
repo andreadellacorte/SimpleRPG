@@ -14,30 +14,38 @@ namespace Assets.Gamelogic.Player
 
         [Require] private Position.Writer PositionWriter;
         [Require] private Rotation.Writer RotationWriter;
+        [Require] private Size.Writer SizeWriter;
+
         [Require] private PlayerInput.Reader PlayerInputReader;
 
         private Vector3 defaultPos;
+        private Quaternion defaultRot;
 
         private bool hasControl = true;
         private bool respawn = false;
         private float distanceToGround;
 
         private Rigidbody rb;
-        private Transform sword;
+        private Transform swordTransform;
 
     		void OnEnable () {
             defaultPos = gameObject.transform.position;
+            defaultRot = gameObject.transform.rotation;
+
             rb = GetComponent<Rigidbody>();
-            sword = gameObject.transform.Find("Sword").transform;
+
+            swordTransform = gameObject.transform.Find("Sword").transform;
             distanceToGround = gameObject.GetComponent<SphereCollider>().radius;
     		}
 
     		void FixedUpdate () {
 
-            distanceToGround = gameObject.GetComponent<SphereCollider>().radius;
+            distanceToGround =
+              gameObject.GetComponent<SphereCollider>().radius
+                * SizeWriter.Data.sizeMultiplier;
 
             if (respawn) {
-              Reset();
+                Reset();
             }
 
             if (!hasControl) {
@@ -68,7 +76,9 @@ namespace Assets.Gamelogic.Player
                     direction += new Vector3(0, SimulationSettings.PlayerSwordPower, 0);
                 }
 
-                rb.AddForceAtPosition(direction * SimulationSettings.PlayerAcceleration, sword.position);
+                rb.AddForceAtPosition(
+                  direction * SimulationSettings.PlayerAcceleration,
+                  swordTransform.position);
         		} else {
 
                 // Jump
@@ -94,7 +104,12 @@ namespace Assets.Gamelogic.Player
         private void Reset() {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            gameObject.transform.position = defaultPos;
+
+            gameObject.transform.position =
+              defaultPos * SizeWriter.Data.sizeMultiplier;
+
+            gameObject.transform.rotation = defaultRot;
+
             respawn = false;
         }
 

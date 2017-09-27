@@ -5,7 +5,7 @@ env:
     - UNITY_VERSION=5.6.0
     - UNITY_FOLDER=/Applications/Unity
     - HOMEBREW_FOLDER=$HOME/Library/Caches/Homebrew
-    - PROJECT_NAME=mysimplerpg
+    - DEPLOYMENT_NAME=mysimplerpg
     - ASSEMBLY_NAME=mysimplerpg_$TRAVIS_JOB_NUMBER
 
 cache:
@@ -28,7 +28,7 @@ install:
 - ./scripts/install.sh
 
 before_script:
-- spatial cloud delete $PROJECT_NAME || true
+- spatial cloud delete $DEPLOYMENT_NAME || true
 
 script:
 - ./scripts/secret.sh
