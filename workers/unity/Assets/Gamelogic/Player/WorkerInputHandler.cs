@@ -6,6 +6,7 @@ using Improbable.Player;
 using Improbable.Unity;
 using Improbable.Unity.Visualizer;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
 
 namespace Assets.Gamelogic.Player
 {
