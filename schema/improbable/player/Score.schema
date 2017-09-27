@@ -1,11 +1,11 @@
 package improbable.player;
 
 type AwardPoints {
-    uint32 amount = 1;
+    int32 amount = 1;
 }
 
 type AwardResponse {
-    uint32 amount = 1;
+    int32 amount = 1;
 }
 
 component Score {

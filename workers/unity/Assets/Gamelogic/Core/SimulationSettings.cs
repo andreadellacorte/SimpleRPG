@@ -19,14 +19,18 @@ namespace Assets.Gamelogic.Core
         public static readonly float PlayerCreatorQueryRetrySecs = 4;
         public static readonly float PlayerEntityCreationRetrySecs = 4;
 
-        public static readonly int PlayerSpawnHealth = 200;
+        public static readonly int PlayerSpawnHealth = 100;
         public static readonly float PlayerSpawnHeight = 4;
         public static readonly float PlayerAcceleration = 10;
         public static readonly float PlayerJumpPower = 5;
         public static readonly float PlayerSwordPower = 0.7F;
+        public static readonly int PlayerSwordDamage = 25;
+
         public static readonly float PlayerKillSizeAward = 1.2F;
 
-        public static readonly int PlayerKillValue = 10;
+        public static readonly int PlayerHitPointAward = 25;
+        public static readonly int PlayerKillPointAward = 100;
+        public static readonly int PlayerKillHealthAward = 100;
 
         public static readonly string DefaultSnapshotPath = Application.dataPath + "/../../../snapshots/default.snapshot";
     }

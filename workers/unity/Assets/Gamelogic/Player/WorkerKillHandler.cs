@@ -16,6 +16,7 @@ namespace Assets.Gamelogic.Player
          */
         [Require] private Score.Writer ScoreWriter;
         [Require] private Size.Writer SizeWriter;
+        [Require] private Health.Writer HealthWriter;
 
         void OnEnable() {
             // Register command callback
@@ -32,6 +33,7 @@ namespace Assets.Gamelogic.Player
 
             AwardPoints((int)request.amount);
             AwardSize();
+            AwardHealth();
 
             // Acknowledge command receipt
             return new AwardResponse(request.amount);
@@ -43,8 +45,17 @@ namespace Assets.Gamelogic.Player
         }
 
         private void AwardSize() {
-            float newSizeMultiplier = SizeWriter.Data.sizeMultiplier * SimulationSettings.PlayerKillSizeAward;
+            float newSizeMultiplier
+              = SizeWriter.Data.sizeMultiplier
+                * SimulationSettings.PlayerKillSizeAward;
             SizeWriter.Send(new Size.Update().SetSizeMultiplier(newSizeMultiplier));
+        }
+
+        private void AwardHealth() {
+            int currentHealth = HealthWriter.Data.health;
+
+            HealthWriter.Send(new Health.Update().SetHealth(currentHealth
+              + SimulationSettings.PlayerKillHealthAward));
         }
     }
 }

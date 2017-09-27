@@ -20,15 +20,13 @@ namespace Assets.Gamelogic.Player
         [Require] private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
 				[Require] private Score.Reader ScoreReader;
 
-        private GameObject scoreCanvasUI;
         private Text totalPointsGUI;
 
         private void Awake() {
-						scoreCanvasUI = GameObject.Find("ScoreCanvas");
-            if (scoreCanvasUI != null) {
-                totalPointsGUI = scoreCanvasUI.GetComponentInChildren<Text>();
-                updateGUI(0);
-            }
+						totalPointsGUI =
+              GameObject.Find("Canvas/Score").GetComponent<Text>();
+
+            updateGUI(0);
         }
 
         private void OnEnable() {
@@ -50,9 +48,7 @@ namespace Assets.Gamelogic.Player
         }
 
         void updateGUI(int score) {
-            if (scoreCanvasUI != null) {
-              	totalPointsGUI.text = score.ToString();
-            }
+      	     totalPointsGUI.text = "Score: " + score.ToString();
         }
 
         void IncreaseCameraOffset() {

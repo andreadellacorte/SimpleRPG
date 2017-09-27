@@ -1,3 +1,4 @@
+using Assets.Gamelogic.Core;
 using UnityEngine;
 using Improbable.Unity;
 using Improbable.Unity.Core;
@@ -28,20 +29,26 @@ namespace Assets.Gamelogic.Player
             if (other != null && other.gameObject.CompareTag("Sword")) {
 
                 // Reduce health of this entity when hit
-                int newHealth = HealthWriter.Data.health - 250;
+                int newHealth = HealthWriter.Data.health
+                  - SimulationSettings.PlayerSwordDamage;
+
                 HealthWriter.Send(new Health.Update().SetHealth(newHealth));
 
+                int pointsToAward = SimulationSettings.PlayerHitPointAward;
+
                 if (newHealth <= 0) {
-                    AwardPointsForKill(other.GetComponent<WorkerBladeHandler>().playerId);
+                    pointsToAward += SimulationSettings.PlayerKillPointAward;
                 }
+
+                AwardPointsToPlayer(pointsToAward,
+                  other.GetComponent<WorkerBladeHandler>().playerId);
 
                 //TODO
                 //Color.Lerp(Color.white, Color.red, Mathf.PingPong(Time.time, 1));
             }
         }
 
-        private void AwardPointsForKill(EntityId playerId) {
-            uint pointsToAward = 1;
+        private void AwardPointsToPlayer(int pointsToAward, EntityId playerId) {
             // Use Commands API to issue an AwardPoints request to the entity who fired the cannonball
             SpatialOS.Commands.SendCommand(HealthWriter, Score.Commands.AwardPoints.Descriptor, new AwardPoints(pointsToAward), playerId)
                 .OnSuccess(OnAwardPointsSuccess)
