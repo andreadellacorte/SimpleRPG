@@ -10,11 +10,6 @@ namespace Assets.Gamelogic.Player
     [WorkerType(WorkerPlatform.UnityClient)]
     public class ClientCameraBehaviour : MonoBehaviour {
 
-        /*
-         * Clients will only have write-access for their own designated Player entity's ClientAuthorityCheck component,
-         * so this MonoBehaviour will be enabled on the client's designated PlayerShip GameObject only and not on
-         * the GameObject of other players'.
-         */
         [Require] private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
 
         private Transform cam;
@@ -38,8 +33,8 @@ namespace Assets.Gamelogic.Player
             camOffset = defaultCamOffset;
         }
 
-        public void IncreaseCameraOffset() {
-            camOffset *= SimulationSettings.PlayerKillSizeAward;
+        public void UpdateCameraOffset(float newSizeMultiplier) {
+            camOffset = defaultCamOffset * newSizeMultiplier;
         }
     }
 }

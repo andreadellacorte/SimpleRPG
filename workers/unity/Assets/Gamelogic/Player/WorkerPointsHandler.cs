@@ -9,7 +9,7 @@ namespace Assets.Gamelogic.Player
 {
     // Add this MonoBehaviour on UnityWorker (server-side) workers only
     [WorkerType(WorkerPlatform.UnityWorker)]
-    public class WorkerKillHandler : MonoBehaviour {
+    public class WorkerPointsHandler : MonoBehaviour {
         /*
          * An entity with this MonoBehaviour will only be enabled for the single UnityWorker
          * which has write access for its Score component.
@@ -18,9 +18,13 @@ namespace Assets.Gamelogic.Player
         [Require] private Size.Writer SizeWriter;
         [Require] private Health.Writer HealthWriter;
 
+        private Rigidbody rb;
+
         void OnEnable() {
+            rb = GetComponent<Rigidbody>();
+
             // Register command callback
-            ScoreWriter.CommandReceiver.OnAwardPoints.RegisterResponse(OnAwardKill);
+            ScoreWriter.CommandReceiver.OnAwardPoints.RegisterResponse(OnAwardPoints);
         }
 
         private void OnDisable() {
@@ -29,11 +33,14 @@ namespace Assets.Gamelogic.Player
         }
 
         // Command callback for handling points awarded by other entities when they sink
-        private AwardResponse OnAwardKill(AwardPoints request, ICommandCallerInfo callerInfo) {
+        private AwardResponse OnAwardPoints(AwardPoints request, ICommandCallerInfo callerInfo) {
 
             AwardPoints((int)request.amount);
-            AwardSize();
-            AwardHealth();
+
+            if(request.isKill) {
+                AwardSize();
+                AwardHealth();
+            }
 
             // Acknowledge command receipt
             return new AwardResponse(request.amount);
@@ -49,6 +56,8 @@ namespace Assets.Gamelogic.Player
               = SizeWriter.Data.sizeMultiplier
                 * SimulationSettings.PlayerKillSizeAward;
             SizeWriter.Send(new Size.Update().SetSizeMultiplier(newSizeMultiplier));
+
+            rb.mass *= SimulationSettings.PlayerKillSizeAward;
         }
 
         private void AwardHealth() {

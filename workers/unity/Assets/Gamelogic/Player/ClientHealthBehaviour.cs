@@ -13,9 +13,8 @@ namespace Assets.Gamelogic.Player
 {
     // Add this MonoBehaviour on client workers only
     [WorkerType(WorkerPlatform.UnityClient)]
-    public class ClientHealthBehaviour : MonoBehaviour
-    {
-        // Inject access to the entity's Health component
+    public class ClientHealthBehaviour : MonoBehaviour {
+
         [Require] private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
         [Require] private Health.Reader HealthReader;
 
@@ -38,6 +37,19 @@ namespace Assets.Gamelogic.Player
 
         // Callback for whenever the Health component is updated
         private void OnHealthUpdated(int newHealth) {
+            int currentHealth = HealthReader.Data.health;
+
+            Color animation;
+
+            if(newHealth > currentHealth) {
+                animation = Color.green;
+            } else {
+                animation = Color.red;
+            }
+
+            // TODO Make the screen blink https://unity3d.com/learn/tutorials/projects/survival-shooter/health-hud?playlist=17144
+            Color.Lerp(Color.white, animation, Mathf.PingPong(Time.time, 1));
+
             updateGUI(newHealth);
         }
 

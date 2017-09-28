@@ -10,10 +10,9 @@ using UnityEngine;
 namespace Assets.Gamelogic.Player
 {
     [WorkerType(WorkerPlatform.UnityClient)]
-    public class ClientConnectionBehaviour : MonoBehaviour
-    {
-        [Require]
-        private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
+    public class ClientConnectionBehaviour : MonoBehaviour {
+
+        [Require] private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
 
         private Coroutine heartbeatCoroutine;
 

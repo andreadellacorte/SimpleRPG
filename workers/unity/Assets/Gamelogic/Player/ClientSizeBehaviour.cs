@@ -12,7 +12,11 @@ using System.Collections;
 
 namespace Assets.Gamelogic.Player
 {
-    public class CrossSizeHandler : MonoBehaviour {
+    [WorkerType(WorkerPlatform.UnityClient)]
+    public class ClientSizeBehaviour : MonoBehaviour {
+
+        [Require] private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
+
         // Inject access to the entity's Size component
         [Require] private Size.Reader SizeReader;
 
@@ -27,9 +31,23 @@ namespace Assets.Gamelogic.Player
         }
 
         // Callback for whenever the Health component is updated
-        private void OnSizeUpdated(float newSizeMultiplier)
-        {
+        private void OnSizeUpdated(float newSizeMultiplier) {
             gameObject.transform.localScale = new Vector3(1.0F, 1.0F, 1.0F) * newSizeMultiplier;
+
+            UpdateCameraOffset(newSizeMultiplier);
+            UpdateLightOffset(newSizeMultiplier);
+        }
+
+        void UpdateCameraOffset(float newSizeMultiplier) {
+            gameObject
+              .GetComponent<ClientCameraBehaviour>()
+              .UpdateCameraOffset(newSizeMultiplier);
+        }
+
+        void UpdateLightOffset(float newSizeMultiplier) {
+            gameObject
+              .GetComponent<ClientLightBehaviour>()
+              .UpdateLightOffset(newSizeMultiplier);
         }
     }
 }

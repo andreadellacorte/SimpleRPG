@@ -8,15 +8,9 @@ using UnityEngine.UI;
 
 namespace Assets.Gamelogic.Player
 {
-    // Add this MonoBehaviour on client workers only
     [WorkerType(WorkerPlatform.UnityClient)]
-    public class ClientKillBehaviour : MonoBehaviour
-    {
-        /*
-         * Client will only have write access for their own designated PlayerShip entity's ShipControls component,
-         * so this MonoBehaviour will be enabled on the client's designated PlayerShip GameObject only and not on
-         * the GameObject of other players' ships.
-         */
+    public class ClientScoreBehaviour : MonoBehaviour {
+
         [Require] private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
 				[Require] private Score.Reader ScoreReader;
 
@@ -42,21 +36,10 @@ namespace Assets.Gamelogic.Player
         // Callback for whenever one or more property of the Score component is updated
         private void OnScoreUpdated(int numberOfPoints) {
             updateGUI(numberOfPoints);
-
-            IncreaseCameraOffset();
-            IncreaseLightOffset();
         }
 
         void updateGUI(int score) {
-      	     totalPointsGUI.text = "Score: " + score.ToString();
-        }
-
-        void IncreaseCameraOffset() {
-            gameObject.GetComponent<ClientCameraBehaviour>().IncreaseCameraOffset();
-        }
-
-        void IncreaseLightOffset() {
-            gameObject.GetComponent<ClientLightBehaviour>().IncreaseLightOffset();
+            totalPointsGUI.text = "Score: " + score.ToString();
         }
     }
 }

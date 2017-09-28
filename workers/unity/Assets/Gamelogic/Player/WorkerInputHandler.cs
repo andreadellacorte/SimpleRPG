@@ -24,6 +24,7 @@ namespace Assets.Gamelogic.Player
 
         private bool hasControl = true;
         private bool respawn = false;
+        private float defaultDistanceToGround;
         private float distanceToGround;
 
         private Rigidbody rb;
@@ -36,15 +37,10 @@ namespace Assets.Gamelogic.Player
             rb = GetComponent<Rigidbody>();
 
             swordTransform = gameObject.transform.Find("Sword").transform;
-            distanceToGround = gameObject.GetComponent<SphereCollider>().radius;
+            defaultDistanceToGround = distanceToGround = gameObject.GetComponent<SphereCollider>().radius;
     		}
 
     		void FixedUpdate () {
-
-            distanceToGround =
-              gameObject.GetComponent<SphereCollider>().radius
-                * SizeWriter.Data.sizeMultiplier;
-
             if (respawn) {
                 Reset();
             }
@@ -112,6 +108,10 @@ namespace Assets.Gamelogic.Player
             gameObject.transform.rotation = defaultRot;
 
             respawn = false;
+        }
+
+        public void UpdateDistanceToGround(float newSizeMultiplier) {
+            distanceToGround = defaultDistanceToGround * newSizeMultiplier;
         }
 
         public void HasControl(bool control) {

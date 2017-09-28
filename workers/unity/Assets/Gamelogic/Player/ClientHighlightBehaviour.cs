@@ -11,7 +11,7 @@ namespace Assets.Gamelogic.Player
     [WorkerType(WorkerPlatform.UnityClient)]
     public class ClientHighlightBehaviour : MonoBehaviour {
 
-        [Require] private PlayerInput.Writer PlayerInputWriter;
+        [Require] private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
 
         [SerializeField] private GameObject playerBody;
         [SerializeField] private Material material;

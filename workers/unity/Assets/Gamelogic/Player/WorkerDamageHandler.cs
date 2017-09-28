@@ -14,6 +14,12 @@ namespace Assets.Gamelogic.Player
 
         [Require] private Health.Writer HealthWriter;
 
+        private Rigidbody rb;
+
+        private void OnEnable() {
+           rb = gameObject.GetComponent<Rigidbody>();
+        }
+
         private void OnTriggerEnter(Collider other) {
             /*
              * Unity's OnTriggerEnter runs even if the MonoBehaviour is disabled, so non-authoritative UnityWorkers
@@ -35,22 +41,43 @@ namespace Assets.Gamelogic.Player
                 HealthWriter.Send(new Health.Update().SetHealth(newHealth));
 
                 int pointsToAward = SimulationSettings.PlayerHitPointAward;
+                bool isKill = false;
 
                 if (newHealth <= 0) {
+                    isKill = true;
                     pointsToAward += SimulationSettings.PlayerKillPointAward;
                 }
 
                 AwardPointsToPlayer(pointsToAward,
-                  other.GetComponent<WorkerBladeHandler>().playerId);
+                                    isKill,
+                                    other
+                                      .GetComponent<WorkerBladeHandler>()
+                                      .playerId);
+            }
 
-                //TODO
-                //Color.Lerp(Color.white, Color.red, Mathf.PingPong(Time.time, 1));
+            if (other != null
+                  && (other.gameObject.CompareTag("Sword")
+                      || other.gameObject.CompareTag("Shield"))) {
+
+                Debug.LogError(rb);
+
+                Vector3 direction =
+                  gameObject.transform.position
+                    - other.gameObject.transform.position;
+
+                direction.y = Mathf.Abs(direction.y);
+
+                Vector3.Normalize(direction);
+
+                rb.AddForce(direction * 15, ForceMode.Impulse);
             }
         }
 
-        private void AwardPointsToPlayer(int pointsToAward, EntityId playerId) {
-            // Use Commands API to issue an AwardPoints request to the entity who fired the cannonball
-            SpatialOS.Commands.SendCommand(HealthWriter, Score.Commands.AwardPoints.Descriptor, new AwardPoints(pointsToAward), playerId)
+        private void AwardPointsToPlayer(int pointsToAward, bool isKill, EntityId playerId) {
+            SpatialOS.Commands.SendCommand(
+              HealthWriter,
+              Score.Commands.AwardPoints.Descriptor,
+              new AwardPoints(pointsToAward, isKill), playerId)
                 .OnSuccess(OnAwardPointsSuccess)
                 .OnFailure(OnAwardPointsFailure);
         }

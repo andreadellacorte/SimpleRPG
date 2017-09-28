@@ -2,6 +2,7 @@ package improbable.player;
 
 type AwardPoints {
     int32 amount = 1;
+    bool is_kill = 2;
 }
 
 type AwardResponse {

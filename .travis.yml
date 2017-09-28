@@ -6,6 +6,7 @@ env:
     - UNITY_FOLDER=/Applications/Unity
     - HOMEBREW_FOLDER=$HOME/Library/Caches/Homebrew
     - DEPLOYMENT_NAME=mysimplerpg
+    - DEPLOYMENT_TTL=ttl_1_hours
     - ASSEMBLY_NAME=mysimplerpg_$TRAVIS_JOB_NUMBER
 
 cache:
@@ -20,8 +21,9 @@ notifications:
 before_install:
 - brew update
 - chmod a+x ./scripts/install.sh
-- chmod a+x ./scripts/build.sh
 - chmod a+x ./scripts/secret.sh
+- chmod a+x ./scripts/tear_down.sh
+- chmod a+x ./scripts/build.sh
 - chmod a+x ./scripts/deploy.sh
 
 install:
@@ -29,7 +31,7 @@ install:
 
 before_script:
 - ./scripts/secret.sh
-- spatial cloud delete $DEPLOYMENT_NAME || true
+- ./scripts/tear_down.sh
 
 script:
 - if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./scripts/build.sh; fi

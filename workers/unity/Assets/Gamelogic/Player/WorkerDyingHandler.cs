@@ -18,10 +18,11 @@ namespace Assets.Gamelogic.Player
         // Inject access to the entity's Health component
         [Require] private Health.Writer HealthWriter;
         [Require] private Position.Writer PositionWriter;
+        [Require] private Size.Writer SizeWriter;
 
         private WorkerInputHandler inputHandler;
 
-        public bool isDead = false;
+        private bool isDead = false;
 
         private void OnEnable() {
             isDead = false;
@@ -76,10 +77,10 @@ namespace Assets.Gamelogic.Player
                 inputHandler.HasControl(false);
             }
 
-            // TODO This can cause troubles if the worker loses authority over
+            // NOTE This can cause troubles if the worker loses authority over
             // the item before respawning
             // Respawn and regain controls after x secs
-            StartCoroutine(DelayedAction(Respawn, 4f));
+            StartCoroutine(DelayedAction(Respawn, 1f));
         }
 
         private IEnumerator DelayedAction(Action action, float delay) {
@@ -91,7 +92,11 @@ namespace Assets.Gamelogic.Player
             // Initialise player
             isDead = false;
 
-            HealthWriter.Send(new Health.Update().SetHealth(SimulationSettings.PlayerSpawnHealth));
+            SizeWriter.Send(new Size.Update()
+              .SetSizeMultiplier(1.0F));
+
+            HealthWriter.Send(new Health.Update()
+              .SetHealth(SimulationSettings.PlayerSpawnHealth));
 
             // Respawn character
             inputHandler.Respawn();

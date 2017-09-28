@@ -10,11 +10,6 @@ namespace Assets.Gamelogic.Player
     [WorkerType(WorkerPlatform.UnityClient)]
     public class ClientLightBehaviour : MonoBehaviour {
 
-        /*
-         * Clients will only have write-access for their own designated Player entity's ClientAuthorityCheck component,
-         * so this MonoBehaviour will be enabled on the client's designated PlayerShip GameObject only and not on
-         * the GameObject of other players'.
-         */
         [Require] private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
 
         private GameObject playerLight;
@@ -41,9 +36,11 @@ namespace Assets.Gamelogic.Player
             playerLight.GetComponent<Light>().range = defaultLightRange;
         }
 
-        public void IncreaseLightOffset() {
-            lightOffset *= SimulationSettings.PlayerKillSizeAward;
-            playerLight.GetComponent<Light>().range *= SimulationSettings.PlayerKillSizeAward;
+        public void UpdateLightOffset(float newSizeMultiplier) {
+            lightOffset = defaultLightOffset * newSizeMultiplier;
+            playerLight
+              .GetComponent<Light>()
+              .range = defaultLightRange * newSizeMultiplier;
         }
     }
 }
