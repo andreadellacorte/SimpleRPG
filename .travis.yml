@@ -28,10 +28,10 @@ install:
 - ./scripts/install.sh
 
 before_script:
+- ./scripts/secret.sh
 - spatial cloud delete $DEPLOYMENT_NAME || true
 
 script:
-- ./scripts/secret.sh
 - if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./scripts/build.sh; fi
 - if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./scripts/deploy.sh; fi
 
