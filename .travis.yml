@@ -24,6 +24,7 @@ before_install:
 - chmod a+x ./scripts/secret.sh
 - chmod a+x ./scripts/tear_down.sh
 - chmod a+x ./scripts/build.sh
+- chmod a+x ./scripts/test_local.sh
 - chmod a+x ./scripts/deploy.sh
 
 install:
