@@ -35,6 +35,7 @@ before_script:
 
 script:
 - ./scripts/build.sh
+- ./scripts/test_local.sh
 - ./scripts/deploy.sh
 
 after_script:
