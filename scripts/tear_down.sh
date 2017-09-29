@@ -3,4 +3,4 @@
 set -e
 set -u
 
-spatial cloud delete $DEPLOYMENT_NAME
+spatial cloud delete $DEPLOYMENT_NAME || true
