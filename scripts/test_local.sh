@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-set -e
 set -u
 
-gtimeout -s SIGINT 45s spatial local launch
+gtimeout 45s spatial local launch
+
+status=$?
+
+if [ $status -eq 124 ] #timed out
+then
+    exit 0
+fi
+exit $status

@@ -36,8 +36,8 @@ before_script:
 
 script:
 - ./scripts/build.sh
-- ./scripts/test_local.sh
-- ./scripts/deploy.sh
+- if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./scripts/test_local.sh; fi
+- if [ $TRAVIS_TEST_RESULT -eq 0 ]; then ./scripts/deploy.sh; fi
 
 after_script:
 - curl --upload-file $TRAVIS_BUILD_DIR/logs/spatial.log https://transfer.sh/spatial_$TRAVIS_BUILD_NUMBER.log
