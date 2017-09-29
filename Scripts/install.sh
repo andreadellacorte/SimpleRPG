@@ -7,8 +7,6 @@ brew tap caskroom/cask
 brew tap improbable-io/spatialos
 brew update
 
-brew install coreutils
-
 brew cask install spatial
 
 if [ ! -d "$UNITY_FOLDER"/Unity.app ]; then
