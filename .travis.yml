@@ -2,7 +2,7 @@ language: objective-c
 
 env:
   global:
-    - UNITY_VERSION=5.6.0
+    - UNITY_VERSION=2017.1.0f3
     - UNITY_FOLDER=/Applications/Unity
     - HOMEBREW_FOLDER=$HOME/Library/Caches/Homebrew
     - DEPLOYMENT_NAME=mysimplerpg

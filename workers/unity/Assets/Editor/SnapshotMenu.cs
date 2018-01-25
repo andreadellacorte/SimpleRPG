@@ -26,16 +26,25 @@ namespace Assets.Editor
 		private static void SaveSnapshot(IDictionary<EntityId, Entity> snapshotEntities)
 		{
 				File.Delete(SimulationSettings.DefaultSnapshotPath);
-				var maybeError = Snapshot.Save(SimulationSettings.DefaultSnapshotPath, snapshotEntities);
+				SnapshotOutputStream stream = new SnapshotOutputStream(SimulationSettings.DefaultSnapshotPath);
 
-				if (maybeError.HasValue)
+				foreach (EntityId key in snapshotEntities.Keys)
 				{
-					Debug.LogErrorFormat("Failed to generate initial world snapshot: {0}", maybeError.Value);
+				    Entity entity = snapshotEntities[key];
+
+						var maybeError = stream.WriteEntity(key, entity);
+
+						if (maybeError.HasValue)
+						{
+								Debug.LogErrorFormat("Failed to generate initial world snapshot: {0}", maybeError.Value);
+								return;
+						}
+						else
+						{
+								Debug.LogFormat("Successfully generated initial world snapshot at {0}", SimulationSettings.DefaultSnapshotPath);
+						}
 				}
-				else
-				{
-					Debug.LogFormat("Successfully generated initial world snapshot at {0}", SimulationSettings.DefaultSnapshotPath);
-				}
+
 		}
 	}
 }
