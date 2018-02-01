@@ -1,8 +1,8 @@
 {
     "name": "beta_batman_crazy_339",
     "project_version": "1.0.0",
-    "sdk_version": "12.1.0-experimental-04",
+    "sdk_version": "12.1.0-b508-835bf-ENGINES-SNAPSHOT",
     "dependencies": [
-    	{"name": "standard_library", "version": "12.1.0-experimental-04"}
+    	{"name": "standard_library", "version": "12.1.0-b508-835bf-ENGINES-SNAPSHOT"}
     ]
 }

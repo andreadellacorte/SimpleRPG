@@ -1,7 +1,7 @@
 {
   "build": {
     "tasks_filename": "spatialos.unity.client.build.json",
-    "generated_build_scripts_type": "unity"
+    "generated_build_scripts_type": "unity-experimental"
   },
   "bridge": {
     "worker_attribute_set": {

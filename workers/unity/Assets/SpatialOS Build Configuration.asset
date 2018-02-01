@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add92caab7fb7f24589c2e7198c19491, type: 3}
+  m_Name: SpatialOS Build Configuration
+  m_EditorClassIdentifier: 
+  isInitialised: 1
+  WorkerBuildConfigurations:
+  - WorkerPlatform: 2
+    ScenesForWorker:
+    - {fileID: 102900000, guid: ca39368fcf5e67547953336b97c3bd18, type: 3}
+    LocalBuildConfig:
+      BuildPlatforms: 1
+      BuildOptions: 1
+    CloudBuildConfig:
+      BuildPlatforms: 1
+      BuildOptions: 0
+  - WorkerPlatform: 1
+    ScenesForWorker:
+    - {fileID: 102900000, guid: de680c4fdd722e545b7288a621d6dea5, type: 3}
+    LocalBuildConfig:
+      BuildPlatforms: 1
+      BuildOptions: 16384
+    CloudBuildConfig:
+      BuildPlatforms: 8
+      BuildOptions: 16384
