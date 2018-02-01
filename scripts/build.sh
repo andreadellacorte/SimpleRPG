@@ -3,4 +3,4 @@
 set -e
 set -u
 
-spatial worker build --target=deployment
+spatial worker build --target=cloud
