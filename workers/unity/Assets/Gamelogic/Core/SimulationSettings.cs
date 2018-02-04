@@ -20,7 +20,7 @@ namespace Assets.Gamelogic.Core
         public static readonly float PlayerEntityCreationRetrySecs = 4;
 
         public static readonly int PlayerSpawnHealth = 100;
-        public static readonly float PlayerSpawnHeight = 4;
+        public static readonly float PlayerSpawnHeight = 200;
         public static readonly float PlayerAcceleration = 10;
         public static readonly float PlayerJumpPower = 5;
         public static readonly float PlayerSwordPower = 0.7F;
