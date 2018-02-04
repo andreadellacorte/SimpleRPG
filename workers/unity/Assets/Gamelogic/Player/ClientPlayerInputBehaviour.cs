@@ -1,6 +1,7 @@
 using UnityEngine;
 using Improbable.Unity;
 using Improbable.Unity.Core;
+using Improbable.Unity.Common.Core.Math;
 using Improbable.Unity.Visualizer;
 using Improbable.Player;
 using Improbable.Notes;
@@ -11,6 +12,7 @@ namespace Assets.Gamelogic.Player
     public class ClientPlayerInputBehaviour : MonoBehaviour {
 
         [Require] private PlayerInput.Writer PlayerInputWriter;
+        [Require] private NoticeCreator.Writer NoticeCreatorWriter;
 
         private GameObject inputFieldGUI;
 
@@ -23,7 +25,7 @@ namespace Assets.Gamelogic.Player
             var xAxis = Input.GetAxis("Horizontal");
             var yAxis = Input.GetAxis("Vertical");
 
-            var feedbackButton = Input.GetKeyDown(KeyCode.Plus);
+            var feedbackButton = Input.GetKeyDown(KeyCode.F);
 
             var update = new PlayerInput.Update();
             update.SetJoystick(new Joystick(xAxis, yAxis));
@@ -35,7 +37,12 @@ namespace Assets.Gamelogic.Player
             PlayerInputWriter.Send(update);
 
             if(feedbackButton) {
-                inputFieldGUI.SetActive(true);
+                //inputFieldGUI.SetActive(true);
+                var createPosition = transform.position;
+                createPosition.y = 1f;
+
+                NoticeCreatorWriter.Send(new NoticeCreator.Update()
+                    .AddCreate(new CreateNoticeData("Hello", createPosition.ToSpatialCoordinates())));
             }
     		}
     }

@@ -1,0 +1,13 @@
+package improbable.notes;
+
+import "improbable/standard_library.schema";
+
+type CreateNoticeData {
+    string text = 1;
+    Coordinates initial_position = 2;
+}
+
+component NoticeCreator {
+    id = 1009;
+    event CreateNoticeData create;
+}

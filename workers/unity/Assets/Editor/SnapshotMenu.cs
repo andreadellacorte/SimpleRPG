@@ -18,13 +18,12 @@ namespace Assets.Editor
 				var currentEntityId = 1;
 
 				snapshotEntities.Add(new EntityId(currentEntityId++), EntityTemplateFactory.CreatePlayerCreatorTemplate());
-				snapshotEntities.Add(new EntityId(currentEntityId++), EntityTemplateFactory.CreateNoticeCreatorTemplate());
 
 				string helpNotice = "Arrow Keys: Movement\nSpace: Jump\nHold Shift: Swing Sword";
 
-				snapshotEntities.Add(new EntityId(currentEntityId++),
-					EntityTemplateFactory.CreateNoticeTemplate(helpNotice,
-						new Improbable.Coordinates(0, 1f, 0).ToUnityVector()));
+				snapshotEntities.Add(
+					new EntityId(currentEntityId++),
+					EntityTemplateFactory.CreateNoticeTemplate(helpNotice,new Improbable.Coordinates(0, 1f, 0)));
 
 				SaveSnapshot(snapshotEntities);
 		}

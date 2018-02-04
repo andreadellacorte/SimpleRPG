@@ -1,4 +1,5 @@
 ﻿using Assets.Gamelogic.Core;
+using Improbable;
 using Improbable.Core;
 using Improbable.Player;
 using Improbable.Notes;
@@ -26,20 +27,6 @@ namespace Assets.Gamelogic.EntityTemplates
             return playerCreatorEntityTemplate;
         }
 
-        public static Entity CreateNoticeCreatorTemplate()
-        {
-            var noticeCreatorEntityTemplate = EntityBuilder.Begin()
-                .AddPositionComponent(Improbable.Coordinates.ZERO.ToUnityVector(), CommonRequirementSets.PhysicsOnly)
-                .AddMetadataComponent(entityType: SimulationSettings.NoticeCreatorPrefabName)
-                .SetPersistence(true)
-                .SetReadAcl(CommonRequirementSets.PhysicsOrVisual)
-                .AddComponent(new Rotation.Data(SimulationSettings.PlayerRotation.ToNativeQuaternion()), CommonRequirementSets.PhysicsOnly)
-                .AddComponent(new PlayerCreation.Data(), CommonRequirementSets.PhysicsOnly)
-                .Build();
-
-            return noticeCreatorEntityTemplate;
-        }
-
         public static Entity CreatePlayerTemplate(string clientId)
         {
             var playerTemplate = EntityBuilder.Begin()
@@ -54,15 +41,16 @@ namespace Assets.Gamelogic.EntityTemplates
                 .AddComponent(new Health.Data(SimulationSettings.PlayerSpawnHealth), CommonRequirementSets.PhysicsOnly)
                 .AddComponent(new Score.Data(0), CommonRequirementSets.PhysicsOnly)
                 .AddComponent(new Size.Data(1.0F), CommonRequirementSets.PhysicsOnly)
+                .AddComponent(new NoticeCreator.Data(), CommonRequirementSets.SpecificClientOnly(clientId))
                 .Build();
 
             return playerTemplate;
         }
 
-        public static Entity CreateNoticeTemplate(string text, Vector3 coordinates)
+        public static Entity CreateNoticeTemplate(string text, Coordinates coordinates)
         {
             var noticeTemplate = EntityBuilder.Begin()
-                .AddPositionComponent(coordinates, CommonRequirementSets.PhysicsOnly)
+                .AddPositionComponent(coordinates.ToUnityVector(), CommonRequirementSets.PhysicsOnly)
                 .AddMetadataComponent(entityType: SimulationSettings.NoticePrefabName)
                 .SetPersistence(true)
                 .SetReadAcl(CommonRequirementSets.PhysicsOrVisual)
