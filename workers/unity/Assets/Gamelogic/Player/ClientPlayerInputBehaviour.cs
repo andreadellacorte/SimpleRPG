@@ -5,6 +5,7 @@ using Improbable.Unity.Common.Core.Math;
 using Improbable.Unity.Visualizer;
 using Improbable.Player;
 using Improbable.Notes;
+using Improbable.Projectiles;
 
 namespace Assets.Gamelogic.Player
 {
@@ -13,6 +14,7 @@ namespace Assets.Gamelogic.Player
 
         [Require] private PlayerInput.Writer PlayerInputWriter;
         [Require] private NoticeCreator.Writer NoticeCreatorWriter;
+        [Require] private ArrowCreator.Writer ArrowCreatorWriter;
 
         private GameObject inputFieldGUI;
 
@@ -26,6 +28,7 @@ namespace Assets.Gamelogic.Player
             var yAxis = Input.GetAxis("Vertical");
 
             var feedbackButton = Input.GetKeyDown(KeyCode.F);
+            var arrowButton = Input.GetKeyDown(KeyCode.Q);
 
             var update = new PlayerInput.Update();
             update.SetJoystick(new Joystick(xAxis, yAxis));
@@ -43,6 +46,14 @@ namespace Assets.Gamelogic.Player
 
                 NoticeCreatorWriter.Send(new NoticeCreator.Update()
                     .AddCreate(new CreateNoticeData("Hello", createPosition.ToSpatialCoordinates())));
+            }
+
+            if(arrowButton) {
+                //inputFieldGUI.SetActive(true);
+                var createPosition = transform.position;
+
+                ArrowCreatorWriter.Send(new ArrowCreator.Update()
+                    .AddCreate(new CreateArrowData(createPosition.ToSpatialCoordinates(), xAxis)));
             }
     		}
     }

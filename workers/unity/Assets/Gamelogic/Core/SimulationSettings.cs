@@ -8,6 +8,7 @@ namespace Assets.Gamelogic.Core
         public static readonly string PlayerCreatorPrefabName = "PlayerCreator";
         public static readonly string NoticeCreatorPrefabName = "NoticeCreator";
         public static readonly string NoticePrefabName = "Notice";
+        public static readonly string ArrowPrefabName = "Arrow";
 
         public static readonly float HeartbeatCheckIntervalSecs = 3;
         public static readonly uint TotalHeartbeatsBeforeTimeout = 3;

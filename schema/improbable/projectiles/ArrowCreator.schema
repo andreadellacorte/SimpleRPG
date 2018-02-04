@@ -1,0 +1,13 @@
+package improbable.projectiles;
+
+import "improbable/standard_library.schema";
+
+type CreateArrowData {
+    Coordinates initial_position = 1;
+    float angle = 2;
+}
+
+component ArrowCreator {
+    id = 1010;
+    event CreateArrowData create;
+}

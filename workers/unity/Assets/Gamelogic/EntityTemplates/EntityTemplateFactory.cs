@@ -3,6 +3,7 @@ using Improbable;
 using Improbable.Core;
 using Improbable.Player;
 using Improbable.Notes;
+using Improbable.Projectiles;
 using Improbable.Unity.Core.Acls;
 using Improbable.Worker;
 using Quaternion = UnityEngine.Quaternion;
@@ -42,6 +43,7 @@ namespace Assets.Gamelogic.EntityTemplates
                 .AddComponent(new Score.Data(0), CommonRequirementSets.PhysicsOnly)
                 .AddComponent(new Size.Data(1.0F), CommonRequirementSets.PhysicsOnly)
                 .AddComponent(new NoticeCreator.Data(), CommonRequirementSets.SpecificClientOnly(clientId))
+                .AddComponent(new ArrowCreator.Data(), CommonRequirementSets.SpecificClientOnly(clientId))
                 .Build();
 
             return playerTemplate;
@@ -59,6 +61,19 @@ namespace Assets.Gamelogic.EntityTemplates
                 .Build();
 
             return noticeTemplate;
+        }
+
+        public static Entity CreateArrowTemplate(Coordinates coordinates, float angle)
+        {
+            var arrowTemplate = EntityBuilder.Begin()
+                .AddPositionComponent(coordinates.ToUnityVector(), CommonRequirementSets.PhysicsOnly)
+                .AddMetadataComponent(entityType: SimulationSettings.ArrowPrefabName)
+                .SetPersistence(true)
+                .SetReadAcl(CommonRequirementSets.PhysicsOrVisual)
+                .AddComponent(new Rotation.Data(Quaternion.identity.ToNativeQuaternion()), CommonRequirementSets.PhysicsOnly)
+                .Build();
+
+            return arrowTemplate;
         }
     }
 }

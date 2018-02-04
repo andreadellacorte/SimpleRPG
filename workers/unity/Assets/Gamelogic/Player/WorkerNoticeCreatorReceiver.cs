@@ -9,22 +9,22 @@ using UnityEngine;
 namespace Assets.Gamelogic.Player
 {
     [WorkerType(WorkerPlatform.UnityWorker)]
-    public class NoticeCreatorReceiver : MonoBehaviour
+    public class WorkerNoticeCreatorReceiver : MonoBehaviour
     {
         [Require] private Position.Writer PositionWriter;
         [Require] private NoticeCreator.Reader NoticeCreatorReader;
 
         private void OnEnable()
         {
-            NoticeCreatorReader.CreateTriggered.Add(CreateNotice);
+            NoticeCreatorReader.CreateTriggered.Add(Create);
         }
 
         private void OnDisable()
         {
-            NoticeCreatorReader.CreateTriggered.Remove(CreateNotice);
+            NoticeCreatorReader.CreateTriggered.Remove(Create);
         }
 
-        private void CreateNotice(CreateNoticeData args)
+        private void Create(CreateNoticeData args)
         {
             var noticeTemplate = EntityTemplateFactory.CreateNoticeTemplate(args.text, args.initialPosition);
             SpatialOS.Commands.CreateEntity(PositionWriter, noticeTemplate);
