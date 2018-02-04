@@ -1,0 +1,17 @@
+package improbable.notes;
+
+type CreateNoticeRequest {
+    float x = 1;
+    float z = 2;
+    string text = 3;
+}
+
+type CreateNoticeResponse {}
+
+component Notice {
+    id = 1008;
+    string text = 1;
+
+    // Used to create a notice
+    command CreateNoticeResponse create_notice(CreateNoticeRequest);
+}

@@ -1,7 +1,7 @@
 ﻿using Assets.Gamelogic.Core;
-using Improbable;
 using Improbable.Core;
 using Improbable.Player;
+using Improbable.Notes;
 using Improbable.Unity.Core.Acls;
 using Improbable.Worker;
 using Quaternion = UnityEngine.Quaternion;
@@ -19,11 +19,25 @@ namespace Assets.Gamelogic.EntityTemplates
                 .AddMetadataComponent(entityType: SimulationSettings.PlayerCreatorPrefabName)
                 .SetPersistence(true)
                 .SetReadAcl(CommonRequirementSets.PhysicsOrVisual)
-                .AddComponent(new Rotation.Data(Quaternion.identity.ToNativeQuaternion()), CommonRequirementSets.PhysicsOnly)
+                .AddComponent(new Rotation.Data(SimulationSettings.PlayerRotation.ToNativeQuaternion()), CommonRequirementSets.PhysicsOnly)
                 .AddComponent(new PlayerCreation.Data(), CommonRequirementSets.PhysicsOnly)
                 .Build();
 
             return playerCreatorEntityTemplate;
+        }
+
+        public static Entity CreateNoticeCreatorTemplate()
+        {
+            var noticeCreatorEntityTemplate = EntityBuilder.Begin()
+                .AddPositionComponent(Improbable.Coordinates.ZERO.ToUnityVector(), CommonRequirementSets.PhysicsOnly)
+                .AddMetadataComponent(entityType: SimulationSettings.NoticeCreatorPrefabName)
+                .SetPersistence(true)
+                .SetReadAcl(CommonRequirementSets.PhysicsOrVisual)
+                .AddComponent(new Rotation.Data(SimulationSettings.PlayerRotation.ToNativeQuaternion()), CommonRequirementSets.PhysicsOnly)
+                .AddComponent(new PlayerCreation.Data(), CommonRequirementSets.PhysicsOnly)
+                .Build();
+
+            return noticeCreatorEntityTemplate;
         }
 
         public static Entity CreatePlayerTemplate(string clientId)
@@ -45,17 +59,18 @@ namespace Assets.Gamelogic.EntityTemplates
             return playerTemplate;
         }
 
-        public static Entity CreateCubeTemplate()
+        public static Entity CreateNoticeTemplate(string text, Vector3 coordinates)
         {
-            var cubeTemplate = EntityBuilder.Begin()
-                .AddPositionComponent(Improbable.Coordinates.ZERO.ToUnityVector(), CommonRequirementSets.PhysicsOnly)
-                .AddMetadataComponent(entityType: SimulationSettings.CubePrefabName)
+            var noticeTemplate = EntityBuilder.Begin()
+                .AddPositionComponent(coordinates, CommonRequirementSets.PhysicsOnly)
+                .AddMetadataComponent(entityType: SimulationSettings.NoticePrefabName)
                 .SetPersistence(true)
                 .SetReadAcl(CommonRequirementSets.PhysicsOrVisual)
                 .AddComponent(new Rotation.Data(Quaternion.identity.ToNativeQuaternion()), CommonRequirementSets.PhysicsOnly)
+                .AddComponent(new Notice.Data(text), CommonRequirementSets.PhysicsOnly)
                 .Build();
 
-            return cubeTemplate;
+            return noticeTemplate;
         }
     }
 }

@@ -6,7 +6,8 @@ namespace Assets.Gamelogic.Core
     {
         public static readonly string PlayerPrefabName = "Player";
         public static readonly string PlayerCreatorPrefabName = "PlayerCreator";
-        public static readonly string CubePrefabName = "Cube";
+        public static readonly string NoticeCreatorPrefabName = "NoticeCreator";
+        public static readonly string NoticePrefabName = "Notice";
 
         public static readonly float HeartbeatCheckIntervalSecs = 3;
         public static readonly uint TotalHeartbeatsBeforeTimeout = 3;
@@ -25,6 +26,7 @@ namespace Assets.Gamelogic.Core
         public static readonly float PlayerJumpPower = 5;
         public static readonly float PlayerSwordPower = 0.7F;
         public static readonly int PlayerSwordDamage = 25;
+        public static readonly Quaternion PlayerRotation = Quaternion.identity * Quaternion.Euler(90f,0,0);
 
         public static readonly float PlayerKillSizeAward = 1.2F;
 
