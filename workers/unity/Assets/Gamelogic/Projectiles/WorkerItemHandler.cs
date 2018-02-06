@@ -4,10 +4,10 @@ using Improbable.Unity.Core;
 using Improbable.Unity.Visualizer;
 using UnityEngine;
 
-namespace Assets.Gamelogic.Player
+namespace Assets.Gamelogic.Projectiles
 {
 		[WorkerType(WorkerPlatform.UnityWorker)]
-		public class WorkerBladeHandler : MonoBehaviour {
+		public class WorkerItemHandler : MonoBehaviour {
 				public EntityId playerId;
 		}
 }

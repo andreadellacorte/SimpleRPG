@@ -16,6 +16,11 @@ namespace Assets.Gamelogic.Core
 
 	    	void Update () {
 
+						if(PositionWriter == null) {
+								Debug.LogError("Something is wrong");
+								Debug.LogError(gameObject.name);
+						}
+
 						var newCoords = transform.position.ToCoordinates();;
 						if (PositionNeedsUpdate(newCoords)) {
 								PositionWriter.Send(new Position.Update().SetCoords(newCoords));

@@ -27,7 +27,7 @@ namespace Assets.Gamelogic.Core
         public static readonly float PlayerJumpPower = 5;
         public static readonly float PlayerSwordPower = 0.7F;
         public static readonly int PlayerSwordDamage = 25;
-        public static readonly Quaternion PlayerRotation = Quaternion.identity * Quaternion.Euler(90f,0,0);
+        public static readonly Quaternion PlayerRotation = Quaternion.Euler(90f,0,0);
 
         public static readonly float PlayerKillSizeAward = 1.2F;
 

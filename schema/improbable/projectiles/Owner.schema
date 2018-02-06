@@ -1,0 +1,7 @@
+package improbable.projectiles;
+
+component Owner {
+    id = 1011;
+
+    EntityId owner = 1;
+}

@@ -1,4 +1,5 @@
 using Assets.Gamelogic.Core;
+using Assets.Gamelogic.Projectiles;
 using UnityEngine;
 using Improbable.Unity;
 using Improbable.Unity.Core;
@@ -32,7 +33,15 @@ namespace Assets.Gamelogic.Player
             if (HealthWriter.Data.health <= 0)
                 return;
 
-            if (other != null && other.gameObject.CompareTag("Sword")) {
+            if (other != null
+                  && (other.gameObject.CompareTag("Sword")
+                      || other.gameObject.CompareTag("Projectile"))) {
+
+                //Debug.LogError(other.gameObject.GetComponent<Rigidbody>().velocity.magnitude);
+
+                //if(other.gameObject.GetComponent<Rigidbody>().velocity.magnitude < 1) {
+                //    return;
+                //}
 
                 // Reduce health of this entity when hit
                 int newHealth = HealthWriter.Data.health
@@ -51,7 +60,7 @@ namespace Assets.Gamelogic.Player
                 AwardPointsToPlayer(pointsToAward,
                                     isKill,
                                     other
-                                      .GetComponent<WorkerBladeHandler>()
+                                      .GetComponent<WorkerItemHandler>()
                                       .playerId);
             }
 

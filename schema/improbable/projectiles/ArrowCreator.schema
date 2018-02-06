@@ -4,7 +4,7 @@ import "improbable/standard_library.schema";
 
 type CreateArrowData {
     Coordinates initial_position = 1;
-    float angle = 2;
+    Coordinates angle = 2;
 }
 
 component ArrowCreator {

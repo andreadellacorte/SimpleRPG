@@ -2,6 +2,7 @@ using Improbable;
 using Improbable.Unity;
 using Improbable.Unity.Core;
 using Improbable.Unity.Visualizer;
+using Assets.Gamelogic.Projectiles;
 using UnityEngine;
 
 namespace Assets.Gamelogic.Player
@@ -17,7 +18,7 @@ namespace Assets.Gamelogic.Player
 			void SetBladePlayerEntity() {
 					gameObject
 						.transform.Find("Sword/Blade")
-						.GetComponent<WorkerBladeHandler>().playerId = gameObject.EntityId();
+						.GetComponent<WorkerItemHandler>().playerId = gameObject.EntityId();
 			}
 		}
 }

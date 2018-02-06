@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4868272345039948}
   - component: {fileID: 65135658822011424}
-  - component: {fileID: 114770851528358912}
+  - component: {fileID: 114474778084364084}
   m_Layer: 0
   m_Name: Blade
   m_TagString: Sword
@@ -605,6 +605,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3de01a43f0cad9459a470d545200b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114474778084364084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352316594847566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16c07da5426bc4fe4ac2199eb628009b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114498414261395468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -659,17 +670,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de3f703e6275d4e76be4afe8647738b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114770851528358912
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1352316594847566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f06875c0cbda4558a34f1be647df965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114830875341912730

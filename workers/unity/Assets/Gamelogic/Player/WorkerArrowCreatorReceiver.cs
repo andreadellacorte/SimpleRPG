@@ -27,6 +27,7 @@ namespace Assets.Gamelogic.Player
         private void Create(CreateArrowData args)
         {
             var arrowTemplate = EntityTemplateFactory.CreateArrowTemplate(
+                gameObject.EntityId(),
                 args.initialPosition,
                 args.angle);
             SpatialOS.Commands.CreateEntity(PositionWriter, arrowTemplate);

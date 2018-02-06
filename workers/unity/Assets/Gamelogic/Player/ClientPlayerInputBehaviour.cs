@@ -50,10 +50,14 @@ namespace Assets.Gamelogic.Player
 
             if(arrowButton) {
                 //inputFieldGUI.SetActive(true);
-                var createPosition = transform.position;
+                var createPosition = (transform.position + ((new Vector3(xAxis, 0.5f, yAxis).normalized)));
+
+                Vector3 relativePos = createPosition - transform.position;
+                Vector3 createRotation = Quaternion.LookRotation(relativePos).eulerAngles;
 
                 ArrowCreatorWriter.Send(new ArrowCreator.Update()
-                    .AddCreate(new CreateArrowData(createPosition.ToSpatialCoordinates(), xAxis)));
+                    .AddCreate(new CreateArrowData(createPosition.ToSpatialCoordinates(),
+                                                   createRotation.ToSpatialCoordinates())));
             }
     		}
     }

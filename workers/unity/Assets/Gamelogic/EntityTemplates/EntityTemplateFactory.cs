@@ -21,7 +21,7 @@ namespace Assets.Gamelogic.EntityTemplates
                 .AddMetadataComponent(entityType: SimulationSettings.PlayerCreatorPrefabName)
                 .SetPersistence(true)
                 .SetReadAcl(CommonRequirementSets.PhysicsOrVisual)
-                .AddComponent(new Rotation.Data(SimulationSettings.PlayerRotation.ToNativeQuaternion()), CommonRequirementSets.PhysicsOnly)
+                .AddComponent(new Rotation.Data(Quaternion.identity.ToNativeQuaternion()), CommonRequirementSets.PhysicsOnly)
                 .AddComponent(new PlayerCreation.Data(), CommonRequirementSets.PhysicsOnly)
                 .Build();
 
@@ -35,7 +35,7 @@ namespace Assets.Gamelogic.EntityTemplates
                 .AddMetadataComponent(entityType: SimulationSettings.PlayerPrefabName)
                 .SetPersistence(false)
                 .SetReadAcl(CommonRequirementSets.PhysicsOrVisual)
-                .AddComponent(new Rotation.Data(Quaternion.identity.ToNativeQuaternion()), CommonRequirementSets.PhysicsOnly)
+                .AddComponent(new Rotation.Data(SimulationSettings.PlayerRotation.ToNativeQuaternion()), CommonRequirementSets.PhysicsOnly)
                 .AddComponent(new ClientAuthorityCheck.Data(), CommonRequirementSets.SpecificClientOnly(clientId))
                 .AddComponent(new ClientConnection.Data(SimulationSettings.TotalHeartbeatsBeforeTimeout), CommonRequirementSets.PhysicsOnly)
                 .AddComponent(new PlayerInput.Data(new Joystick(xAxis: 0, yAxis: 0), false, false), CommonRequirementSets.SpecificClientOnly(clientId))
@@ -63,14 +63,18 @@ namespace Assets.Gamelogic.EntityTemplates
             return noticeTemplate;
         }
 
-        public static Entity CreateArrowTemplate(Coordinates coordinates, float angle)
+        public static Entity CreateArrowTemplate(EntityId owner, Coordinates coordinates, Coordinates angle)
         {
             var arrowTemplate = EntityBuilder.Begin()
                 .AddPositionComponent(coordinates.ToUnityVector(), CommonRequirementSets.PhysicsOnly)
                 .AddMetadataComponent(entityType: SimulationSettings.ArrowPrefabName)
                 .SetPersistence(true)
                 .SetReadAcl(CommonRequirementSets.PhysicsOrVisual)
-                .AddComponent(new Rotation.Data(Quaternion.identity.ToNativeQuaternion()), CommonRequirementSets.PhysicsOnly)
+                //.AddComponent(new Rotation.Data(SimulationSettings.PlayerRotation.ToNativeQuaternion()),
+                //  CommonRequirementSets.PhysicsOnly)
+                .AddComponent(new Rotation.Data((Quaternion.Euler(angle.ToUnityVector())).ToNativeQuaternion()),
+                    CommonRequirementSets.PhysicsOnly)
+                .AddComponent(new Owner.Data(owner), CommonRequirementSets.PhysicsOnly)
                 .Build();
 
             return arrowTemplate;
