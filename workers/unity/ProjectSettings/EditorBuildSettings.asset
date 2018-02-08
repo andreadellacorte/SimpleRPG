@@ -7,5 +7,10 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/UnityClient.unity
+    guid: ca39368fcf5e67547953336b97c3bd18
+  - enabled: 1
+    path: Assets/SplashScreen.unity
+    guid: a492033923fe641f9938c0388524dfd7
   - enabled: 1
     path: Assets/UnityWorker.unity
+    guid: de680c4fdd722e545b7288a621d6dea5

@@ -16,6 +16,7 @@ MonoBehaviour:
   - WorkerPlatform: 2
     ScenesForWorker:
     - {fileID: 102900000, guid: ca39368fcf5e67547953336b97c3bd18, type: 3}
+    - {fileID: 102900000, guid: a492033923fe641f9938c0388524dfd7, type: 3}
     LocalBuildConfig:
       BuildPlatforms: 1
       BuildOptions: 1
