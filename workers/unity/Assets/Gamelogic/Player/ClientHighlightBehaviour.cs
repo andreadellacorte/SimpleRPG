@@ -13,13 +13,13 @@ namespace Assets.Gamelogic.Player
 
         [Require] private ClientAuthorityCheck.Writer ClientAuthorityCheckWriter;
 
-        [SerializeField] private GameObject playerBody;
+        [SerializeField] private GameObject head;
         [SerializeField] private Material material;
 
         private void OnEnable() {
             GameObject.Find("Player Light").GetComponent<Light>().enabled = true;
             gameObject.transform.Find("Crown").GetComponent<MeshRenderer>().enabled = true;
-            playerBody.GetComponent<Renderer>().material = material;
+            head.GetComponent<SkinnedMeshRenderer>().materials[1].color = Color.red;
         }
     }
 }

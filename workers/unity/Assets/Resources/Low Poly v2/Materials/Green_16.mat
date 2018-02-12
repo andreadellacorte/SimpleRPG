@@ -11,6 +11,7 @@ Material:
   m_ShaderKeywords: _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -71,5 +72,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.50980395, g: 0.6666667, b: 0.34901962, a: 1}
+    - _Color: {r: 0.5225554, g: 0.77205884, b: 0.26681444, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
